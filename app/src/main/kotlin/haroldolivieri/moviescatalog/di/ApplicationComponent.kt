@@ -13,7 +13,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ApplicationModule::class,
         ActivityBuilderModule::class))
-interface ApplicationComponent : AndroidInjector<MoviesCatalogApplication> {
+abstract class ApplicationComponent : AndroidInjector<MoviesCatalogApplication> {
 
     @Component.Builder
     interface Builder {

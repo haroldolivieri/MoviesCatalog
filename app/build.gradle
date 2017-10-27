@@ -61,7 +61,14 @@ dependencies {
     kapt baseDependencies.dagger2_android_processor
 
     compile baseDependencies.rx_java
+    compile baseDependencies.rx_android
+
+    compile baseDependencies.retrofit2
+    compile baseDependencies.retrofit_rx_adapter
+    compile baseDependencies.retrofit_converter_gson
     compile baseDependencies.gson
+    compile baseDependencies.okhttp3
+    compile baseDependencies.logging_interceptor
 
     compile baseDependencies.app_compat
     compile baseDependencies.card_view
