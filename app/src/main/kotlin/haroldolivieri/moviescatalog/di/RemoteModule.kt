@@ -23,7 +23,7 @@ class RemoteModule {
 
     @Provides
     @RemoteUrl
-    fun provideBaseURl(): String = "https://api.themoviedb.org/3/"
+    fun provideBaseURl(): String = "https://api.themoviedb.org/"
 
     @Provides
     @ApiKey

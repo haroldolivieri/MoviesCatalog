@@ -6,6 +6,7 @@ import haroldolivieri.moviescatalog.custom.EndlessRecyclerViewScrollListener
 import haroldolivieri.moviescatalog.features.BaseActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import haroldolivieri.moviescatalog.domain.Movie
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class MainActivity(override val layout: Int = R.layout.activity_main) : BaseActi
     }
 
     override fun showMovies(movies: List<Movie>?) {
-
+        Log.e(TAG, "ACHOU")
     }
 
     override fun showError(throwable: Throwable) {
