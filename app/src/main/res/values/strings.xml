@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MoviesCatalog</string>
+
+    <string name="bariol_regular">fonts/Bariol_Regular.otf</string>
+    <string name="bariol_light">fonts/Bariol_Light.otf</string>
+    <string name="bariol_thin">fonts/Bariol_Thin.otf</string>
+    <string name="bariol_bold">fonts/Bariol_Bold.otf</string>
+
+</resources>

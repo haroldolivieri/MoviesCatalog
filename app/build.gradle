@@ -1,0 +1,116 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+HashMap<String, String> baseDependencies = rootProject.ext.dependencies
+HashMap<String, String> testDependencies = rootProject.ext.testDependencies
+HashMap<String, String> application = rootProject.ext.application
+HashMap<String, String> versions = rootProject.ext.versions
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+
+    defaultConfig {
+        applicationId "com.haroldolivieri.badasseslist"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode application.versionCode
+        versionName application.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            testCoverageEnabled = false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            testCoverageEnabled = true
+        }
+    }
+
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile baseDependencies.kotlin_std_lib
+
+    compile baseDependencies.dagger2
+    compile baseDependencies.dagger2_android_support
+    kapt baseDependencies.dagger2_compiler
+    kapt baseDependencies.dagger2_android_processor
+
+    compile baseDependencies.rx_java
+    compile baseDependencies.gson
+
+    compile baseDependencies.app_compat
+    compile baseDependencies.card_view
+    compile baseDependencies.constraint_layout
+    compile baseDependencies.support_design
+    compile baseDependencies.support_annotations
+
+    compile baseDependencies.calligraphy
+    compile baseDependencies.glide
+
+    testCompile testDependencies.junit
+    testCompile testDependencies.mockito
+    testCompile testDependencies.hamcrest
+    testCompile testDependencies.roboletric
+    testCompile(testDependencies.powermock_mockito) {
+        exclude group: 'org.objenesis'
+    }
+    testCompile(testDependencies.powermock_junit)
+
+    testCompile baseDependencies.dagger2
+    testCompile(baseDependencies.dagger2_android_support, {
+        exclude group: 'com.android.support'
+    })
+    kaptTest baseDependencies.dagger2_compiler
+    kaptTest baseDependencies.dagger2_android_processor
+}
+
+junitJacoco {
+    jacocoVersion = '0.7.9'
+    ignoreProjects = []
+    excludes = ['**/R.class',
+                '**/R$*.class',
+                '**/BuildConfig.*',
+                '**/Manifest*.*',
+                'android/**/*.*',
+                'io/realm/**/*.*',
+                '**/*_MembersInjector.class',
+                '**/Dagger*Component.class',
+                '**/Dagger*Component$Builder.class',
+                '**/*Module_*Factory.class',
+                '**/*_Factory.class']
+    includeNoLocationClasses = true
+}
+
+repositories {
+    mavenCentral()
+}
+
+android.applicationVariants.all {
+    def aptOutputDir = new File(buildDir, "generated/source/kapt/${it.unitTestVariant.dirName}")
+    it.unitTestVariant.addJavaSourceFoldersToModel(aptOutputDir)
+}
