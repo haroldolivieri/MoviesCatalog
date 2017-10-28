@@ -1,7 +1,7 @@
-package haroldolivieri.moviescatalog.remote
+package haroldolivieri.moviescatalog.repository.remote
 
-import haroldolivieri.moviescatalog.remote.entities.Genre
-import haroldolivieri.moviescatalog.remote.entities.MovieRemote
+import haroldolivieri.moviescatalog.repository.remote.entities.Genre
+import haroldolivieri.moviescatalog.repository.remote.entities.MovieRemote
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

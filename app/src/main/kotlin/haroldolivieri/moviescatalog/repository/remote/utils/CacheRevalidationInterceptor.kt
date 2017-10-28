@@ -1,4 +1,4 @@
-package haroldolivieri.moviescatalog.remote.utils
+package haroldolivieri.moviescatalog.repository.remote.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

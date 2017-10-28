@@ -6,7 +6,6 @@ import haroldolivieri.moviescatalog.custom.EndlessRecyclerViewScrollListener
 import haroldolivieri.moviescatalog.features.BaseActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.StaggeredGridLayoutManager
 import haroldolivieri.moviescatalog.domain.Movie
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -18,12 +17,12 @@ interface MainView {
     fun showError(throwable: Throwable)
 }
 
-class ListMoviesActivity(override val layout: Int = R.layout.activity_main) : BaseActivity(), MainView {
+class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseActivity(), MainView {
 
     @Inject lateinit var mainPresenter: MainPresenter
     val movieAdapter by lazy {
-        MoviesAdapter(context = this@ListMoviesActivity,
-                favClick = { _, _ ->},
+        MoviesAdapter(context = this@MoviesActivity,
+                favClick = { checked, movie -> mainPresenter.favoriteAction(checked, movie) },
                 itemClick = { _, _ -> })
     }
 

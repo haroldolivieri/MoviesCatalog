@@ -1,24 +1,24 @@
-package haroldolivieri.moviescatalog.features.favorites
+package haroldolivieri.moviescatalog.repository.local
 
 import haroldolivieri.moviescatalog.domain.Movie
-import haroldolivieri.moviescatalog.local.AbstractRealmRepository
-import haroldolivieri.moviescatalog.local.entities.GenreRealmObject
-import haroldolivieri.moviescatalog.local.entities.MovieRealmObject
-import haroldolivieri.moviescatalog.remote.entities.Genre
+import haroldolivieri.moviescatalog.repository.local.entities.GenreRealmObject
+import haroldolivieri.moviescatalog.repository.local.entities.MovieRealmObject
 import io.reactivex.Observable
 import io.realm.RealmConfiguration
 import io.realm.RealmList
 import io.realm.Sort
+import io.realm.exceptions.RealmPrimaryKeyConstraintException
 import java.util.*
 
 
 interface FavoritesRepository {
     fun favorite(movie: Movie): Observable<Movie>
-    fun unFavorite(id: Int)
+    fun unfavorite(id: Int)
     fun fetch(): Observable<Movie>
     fun deleteAll()
 }
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
         AbstractRealmRepository(configuration), FavoritesRepository {
 
@@ -45,10 +45,14 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
                     title, popularity, backDropPath, adult, list, overview)
         }
 
-        realm().use {
-            it.executeTransaction {
-                it.copyToRealm(favorite)
+        try {
+            realm().use {
+                it.executeTransaction {
+                    it.copyToRealm(favorite)
+                }
             }
+        } catch (e : RealmPrimaryKeyConstraintException) {
+            return Observable.error(e)
         }
 
         return Observable.just(favorite?.toMovie())
@@ -62,8 +66,13 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
                 }
             }
 
-    override fun unFavorite(id: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun unfavorite(id: Int) {
+        realm().use {
+            val movie : MovieRealmObject? = it.where(CLAZZ_MOVIE).equalTo("id", id).findFirst()
+            it.executeTransaction {
+                movie?.deleteFromRealm()
+            }
+        }
     }
 
 }

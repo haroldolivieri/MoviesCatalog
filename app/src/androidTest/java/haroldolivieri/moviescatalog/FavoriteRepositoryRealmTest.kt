@@ -3,18 +3,15 @@ package haroldolivieri.moviescatalog
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import haroldolivieri.moviescatalog.domain.Movie
-import haroldolivieri.moviescatalog.features.favorites.FavoritesRepository
-import haroldolivieri.moviescatalog.features.favorites.FavoritesRepositoryLocal
-import haroldolivieri.moviescatalog.remote.entities.Genre
+import haroldolivieri.moviescatalog.repository.local.FavoritesRepository
+import haroldolivieri.moviescatalog.repository.local.FavoritesRepositoryLocal
+import haroldolivieri.moviescatalog.repository.remote.entities.Genre
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import io.realm.exceptions.RealmPrimaryKeyConstraintException
 import junit.framework.Assert
-
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Before
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
@@ -54,6 +51,39 @@ class FavoriteRepositoryRealmTest {
     }
 
     @Test
+    fun unfavoriteMovieWithSuccess() {
+        val genres = listOf(Genre(1, "Thriller"), Genre(2, "Action"))
+        val movieToBeFavored = Movie(211672, false, 6.4, "Minions", 618.378251,
+                "/uX7LXnsC7bZJZjn048UCOwkPXWJ.jpg", false, genres, Date(),
+                "Minions Stuart, Kevin and Bob are recruited by Scarlet Overkill," +
+                        " a super-villain who, alongside her inventor husband Herb, " +
+                        "hatches a plot to take over the world.")
+
+        val result = favoriteRepository.favorite(movieToBeFavored)
+
+        favoriteRepository.fetch()
+                .toList()
+                .toObservable()
+                .subscribe {
+                    Assert.assertEquals(it.size, 1)
+                }
+
+        favoriteRepository.unfavorite(movieToBeFavored.id!!)
+
+        favoriteRepository.fetch()
+                .toList()
+                .toObservable()
+                .subscribe {
+                    Assert.assertEquals(it.size, 0)
+                }
+    }
+
+    @Test
+    fun unfavoriteInexistentMovieDoesNotCrash() {
+        favoriteRepository.unfavorite(123)
+    }
+
+    @Test
     fun testFavoriteManyMoviesWithSameCategory() {
         val genres = listOf(Genre(1, "Thriller"), Genre(2, "Action"))
         val movieToBeFavored1 = Movie(1, false, 6.4, "", 618.378251, "", false, genres, Date(), "")
@@ -74,7 +104,7 @@ class FavoriteRepositoryRealmTest {
                 }
     }
 
-    @Test(expected = RealmPrimaryKeyConstraintException::class)
+    @Test
     fun testAddManyTimesSameMovie() {
         var x = 5
         while (x > 0) {
@@ -85,8 +115,11 @@ class FavoriteRepositoryRealmTest {
                             " a super-villain who, alongside her inventor husband Herb, " +
                             "hatches a plot to take over the world.")
 
-            val result = favoriteRepository.favorite(movieToBeFavored)
             x--
+
+            favoriteRepository.favorite(movieToBeFavored).subscribe({}, { e ->
+                e.message?.contains("Primary key value already exists: 211672")?.let { Assert.assertTrue(it) }
+            })
         }
     }
 

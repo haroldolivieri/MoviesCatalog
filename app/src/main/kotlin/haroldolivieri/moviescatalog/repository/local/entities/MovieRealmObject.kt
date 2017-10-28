@@ -1,4 +1,4 @@
-package haroldolivieri.moviescatalog.local.entities
+package haroldolivieri.moviescatalog.repository.local.entities
 
 import haroldolivieri.moviescatalog.domain.Movie
 import io.realm.RealmList

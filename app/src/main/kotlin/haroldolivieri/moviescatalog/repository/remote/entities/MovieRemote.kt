@@ -1,8 +1,7 @@
-package haroldolivieri.moviescatalog.remote.entities
+package haroldolivieri.moviescatalog.repository.remote.entities
 
 import com.google.gson.annotations.SerializedName
 import haroldolivieri.moviescatalog.domain.Movie
-import haroldolivieri.moviescatalog.local.entities.MovieRealmObject
 import java.util.*
 
 

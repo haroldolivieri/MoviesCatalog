@@ -16,6 +16,7 @@ import haroldolivieri.moviescatalog.R
 import haroldolivieri.moviescatalog.domain.Movie
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class MoviesAdapter(private var movies: MutableList<Movie>? = null,
@@ -25,9 +26,11 @@ class MoviesAdapter(private var movies: MutableList<Movie>? = null,
                                             options: ActivityOptionsCompat) -> Unit?) :
         RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
+    val favItems: MutableMap<Int, Boolean> = HashMap()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie_list, parent, false)
-        return MoviesViewHolder(view, itemClick, favClick, context)
+        return MoviesViewHolder(view)
     }
 
     fun setMovies(movies: List<Movie>?) {
@@ -37,9 +40,12 @@ class MoviesAdapter(private var movies: MutableList<Movie>? = null,
             movies?.let { this.movies!!.addAll(it) }
         }
 
-        this.movies?.distinct()
-
+        refreshFavMap(movies)
         notifyDataSetChanged()
+    }
+
+    private fun refreshFavMap(newItems: List<Movie>?) {
+        newItems?.map { it.id?.let { it1 -> it.favored?.let { it2 -> favItems.put(it1, it2) } } }
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
@@ -48,17 +54,13 @@ class MoviesAdapter(private var movies: MutableList<Movie>? = null,
 
     override fun getItemCount(): Int = movies?.size ?: 0
 
-    class MoviesViewHolder(view: View,
-                           private val itemClick: (movie: Movie,
-                                                   options: ActivityOptionsCompat) -> Unit?,
-                           private val favClick: (favored: Boolean, movie: Movie) -> Unit,
-                           private val context: Context) : RecyclerView.ViewHolder(view) {
+    inner class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val title by lazy { view.findViewById<TextView>(R.id.movieTitle) }
-        val year by lazy { view.findViewById<TextView>(R.id.movieReleaseYear) }
-        val voteAverage by lazy { view.findViewById<TextView>(R.id.voteAverage) }
-        val favAction by lazy { view.findViewById<CheckBox>(R.id.favoriteButton) }
-        val image by lazy { view.findViewById<ImageView>(R.id.movieImageView) }
+        private val title by lazy { view.findViewById<TextView>(R.id.movieTitle) }
+        private val year by lazy { view.findViewById<TextView>(R.id.movieReleaseYear) }
+        private val voteAverage by lazy { view.findViewById<TextView>(R.id.voteAverage) }
+        private val favAction by lazy { view.findViewById<CheckBox>(R.id.favoriteButton) }
+        private val image by lazy { view.findViewById<ImageView>(R.id.movieImageView) }
 
         fun bind(movie: Movie) {
 
@@ -73,9 +75,15 @@ class MoviesAdapter(private var movies: MutableList<Movie>? = null,
             title.text = movie.title
             year.text = movie.releaseDate?.formatToString("yyyy")
             voteAverage.text = "${movie.voteAverage}"
-            favAction.isChecked = movie.favored!!
+            favAction.isChecked = favItems[movie.id]!!
 
-            favAction.setOnCheckedChangeListener { _, checked -> favClick(checked, movie) }
+            favAction.setOnClickListener { v ->
+                val checked = (v as CheckBox).isChecked
+
+                movie.id?.let { favItems.put(it, checked) }
+                favClick(checked, movie)
+            }
+
             itemView.setOnClickListener {
                 //                val p1 = android.support.v4.util.Pair(badAssImage as View,
 //                        context.getString(R.string.badass_image_transition_name))

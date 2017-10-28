@@ -1,9 +1,8 @@
-package haroldolivieri.moviescatalog.features.movies
+package haroldolivieri.moviescatalog.repository.remote
 
 import haroldolivieri.moviescatalog.di.ApiKey
-import haroldolivieri.moviescatalog.remote.entities.Genre
-import haroldolivieri.moviescatalog.remote.entities.MovieRemote
-import haroldolivieri.moviescatalog.remote.MoviesAPI
+import haroldolivieri.moviescatalog.repository.remote.entities.Genre
+import haroldolivieri.moviescatalog.repository.remote.entities.MovieRemote
 import io.reactivex.Observable
 import javax.inject.Inject
 

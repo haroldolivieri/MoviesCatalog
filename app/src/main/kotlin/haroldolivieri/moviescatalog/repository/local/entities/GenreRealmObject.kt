@@ -1,8 +1,7 @@
-package haroldolivieri.moviescatalog.local.entities
+package haroldolivieri.moviescatalog.repository.local.entities
 
-import haroldolivieri.moviescatalog.remote.entities.Genre
+import haroldolivieri.moviescatalog.repository.remote.entities.Genre
 import io.realm.RealmObject
-import io.realm.annotations.PrimaryKey
 
 
 open class GenreRealmObject(var id: Int?,

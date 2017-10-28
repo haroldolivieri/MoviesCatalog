@@ -1,4 +1,4 @@
-package haroldolivieri.moviescatalog.remote.utils
+package haroldolivieri.moviescatalog.repository.remote.utils
 
 import com.google.gson.Gson
 import com.google.gson.JsonElement

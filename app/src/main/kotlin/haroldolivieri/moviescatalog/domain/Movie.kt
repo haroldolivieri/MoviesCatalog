@@ -1,6 +1,6 @@
 package haroldolivieri.moviescatalog.domain
 
-import haroldolivieri.moviescatalog.remote.entities.Genre
+import haroldolivieri.moviescatalog.repository.remote.entities.Genre
 import java.util.*
 
 

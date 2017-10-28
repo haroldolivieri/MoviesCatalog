@@ -1,4 +1,4 @@
-package haroldolivieri.moviescatalog.local
+package haroldolivieri.moviescatalog.repository.local
 
 import io.realm.Realm
 import io.realm.RealmConfiguration
