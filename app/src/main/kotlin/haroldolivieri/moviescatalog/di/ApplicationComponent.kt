@@ -6,6 +6,8 @@ import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import haroldolivieri.moviescatalog.MoviesCatalogApplication
+import io.realm.RealmConfiguration
+import io.realm.internal.OsRealmConfig
 import javax.inject.Singleton
 
 @Singleton
@@ -19,6 +21,8 @@ abstract class ApplicationComponent : AndroidInjector<MoviesCatalogApplication> 
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
+        @BindsInstance
+        fun realmConfiguration(realmConfig: RealmConfiguration): Builder
         fun build(): ApplicationComponent
     }
 }

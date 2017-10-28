@@ -2,11 +2,11 @@ package haroldolivieri.moviescatalog.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import haroldolivieri.moviescatalog.features.main.MainActivity
-import haroldolivieri.moviescatalog.features.main.MainActivityModule
+import haroldolivieri.moviescatalog.features.movies.MainActivity
+import haroldolivieri.moviescatalog.features.movies.MoviesModule
 
 @Module
 abstract class ActivityBuilderModule {
-    @ContributesAndroidInjector(modules = arrayOf(MainActivityModule::class, RemoteModule::class))
+    @ContributesAndroidInjector(modules = arrayOf(MoviesModule::class, RemoteModule::class))
     internal abstract fun bindMainActivity(): MainActivity
 }

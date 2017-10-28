@@ -1,4 +1,4 @@
-package haroldolivieri.moviescatalog.features.main
+package haroldolivieri.moviescatalog.features.movies
 
 import android.os.Bundle
 import haroldolivieri.moviescatalog.R
@@ -11,6 +11,13 @@ import haroldolivieri.moviescatalog.domain.Movie
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
+interface MainView {
+    fun showLoading()
+    fun hideLoading()
+    fun showMovies(movies: List<Movie>?)
+    fun showError(throwable: Throwable)
+}
+
 class MainActivity(override val layout: Int = R.layout.activity_main) : BaseActivity(), MainView {
 
 
@@ -22,13 +29,9 @@ class MainActivity(override val layout: Int = R.layout.activity_main) : BaseActi
         mainPresenter.fetchPopularMoviesData()
     }
 
-    override fun showLoading() {
+    override fun showLoading() {}
 
-    }
-
-    override fun hideLoading() {
-
-    }
+    override fun hideLoading() {}
 
     override fun showMovies(movies: List<Movie>?) {
         Log.e(TAG, "ACHOU")

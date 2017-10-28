@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 HashMap<String, String> baseDependencies = rootProject.ext.dependencies
 HashMap<String, String> testDependencies = rootProject.ext.testDependencies
@@ -94,6 +95,7 @@ dependencies {
     })
     kaptTest baseDependencies.dagger2_compiler
     kaptTest baseDependencies.dagger2_android_processor
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 junitJacoco {
