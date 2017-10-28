@@ -1,4 +1,4 @@
 package haroldolivieri.moviescatalog.remote.entities
 
 
-data class GenreRemote(val id: Int, val name: String)
+data class Genre(val id: Int?, val name: String?)

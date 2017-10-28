@@ -1,7 +1,7 @@
-package haroldolivieri.moviescatalog.features.main
+package haroldolivieri.moviescatalog.features.movies
 
 import haroldolivieri.moviescatalog.di.ApiKey
-import haroldolivieri.moviescatalog.remote.entities.GenreRemote
+import haroldolivieri.moviescatalog.remote.entities.Genre
 import haroldolivieri.moviescatalog.remote.entities.MovieRemote
 import haroldolivieri.moviescatalog.remote.MoviesAPI
 import io.reactivex.Observable
@@ -10,13 +10,13 @@ import javax.inject.Inject
 
 interface MoviesRepository {
     fun getPopularMovies(page: Int): Observable<List<MovieRemote>>
-    fun getGenres(): Observable<List<GenreRemote>>
+    fun getGenres(): Observable<List<Genre>>
 }
 
-class MoviesRepositoryImpl @Inject constructor(private val moviesAPI: MoviesAPI,
-                                               @ApiKey private val apiKey: String) : MoviesRepository {
+class MoviesRepositoryRemote @Inject constructor(private val moviesAPI: MoviesAPI,
+                                                 @ApiKey private val apiKey: String) : MoviesRepository {
 
-    override fun getGenres(): Observable<List<GenreRemote>> =
+    override fun getGenres(): Observable<List<Genre>> =
             moviesAPI.getGenres(apiKey)
 
     override fun getPopularMovies(page: Int): Observable<List<MovieRemote>> =

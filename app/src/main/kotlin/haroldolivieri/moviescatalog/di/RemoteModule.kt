@@ -11,9 +11,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import haroldolivieri.moviescatalog.remote.CacheRevalidationInterceptor
-import haroldolivieri.moviescatalog.remote.isNetworkAvailable
-import haroldolivieri.moviescatalog.remote.ItemTypeAdapterFactory
+import haroldolivieri.moviescatalog.remote.utils.CacheRevalidationInterceptor
+import haroldolivieri.moviescatalog.remote.utils.isNetworkAvailable
+import haroldolivieri.moviescatalog.remote.utils.ItemTypeAdapterFactory
 import haroldolivieri.moviescatalog.remote.MoviesAPI
 import java.io.File
 import java.util.concurrent.TimeUnit
