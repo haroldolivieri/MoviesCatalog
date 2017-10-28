@@ -5,7 +5,7 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
 
-open class GenreRealmObject(@PrimaryKey var id: Int?,
+open class GenreRealmObject(var id: Int?,
                             var name: String?) : RealmObject() {
 
     constructor() : this(null, null)

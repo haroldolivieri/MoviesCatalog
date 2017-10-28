@@ -1,0 +1,11 @@
+{
+  "facebookToken": "iuh21nwsniwaeq",
+  "email": "nadilson@gmail.com",
+  "password": "abc123",
+  "birthDate": "1977-10-13T00:00:00.000Z",
+  "phone": {
+    "country": "55",
+    "region": "21",
+    "number": "999999999"
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "product": {
+        "id": 1,
+        "tags": [
+          {
+            "id": 1,
+            "name": "Tinto"
+          }
+        ],
+        "category": {
+          "id": 1,
+          "position": 20,
+          "name": "Cervejas",
+          "description": "A maior invenção da história!",
+          "photoUrl": "https://storage.googleapis.com/udrink-development.appspot.com/categories/beerImage.png",
+          "margin": 10
+        },
+        "barCode": "zwxscdrfvbn",
+        "name": "Heineken",
+        "description": "Cerveja blablabla",
+        "extra": "American Beer",
+        "photoUrl": "https://storage.googleapis.com/udrink-development.appspot.com/products/Heineken355.png",
+        "size": "355ml",
+        "volume": 355,
+        "margin": 10
+      },
+      "code": "1",
+      "price": 11860,
+      "promotionalPrice": 190,
+      "count": 83,
+      "minCount": 10,
+      "cold": false
+    },
+    {
+      "id": 8,
+      "product": {
+        "id": 8,
+        "category": {
+          "id": 1,
+          "position": 20,
+          "name": "Cervejas",
+          "description": "A maior invenção da história!",
+          "photoUrl": "https://storage.googleapis.com/udrink-development.appspot.com/categories/beerImage.png",
+          "margin": 10
+        },
+        "barCode": "sakdmas",
+        "name": "Three Monkeys Golden Ale",
+        "description": "De alta fermentação, apresenta uma coloração dourada e uma generosa camada de espuma cremosa. Traz em seu aroma um perfil harmônico entre o malte e o lúpulo.",
+        "extra": "Nacional",
+        "photoUrl": "https://storage.googleapis.com/udrink-development.appspot.com/products/threeMonkeys.jpg",
+        "size": "355ml",
+        "volume": 355,
+        "margin": 10
+      },
+      "code": "8",
+      "price": 290,
+      "promotionalPrice": 290,
+      "count": 8996,
+      "minCount": 10,
+      "cold": false
+    },
+    {
+      "id": 15,
+      "product": {
+        "id": 8,
+        "category": {
+          "id": 1,
+          "position": 20,
+          "name": "Cervejas",
+          "description": "A maior invenção da história!",
+          "photoUrl": "https://storage.googleapis.com/udrink-development.appspot.com/categories/beerImage.png",
+          "margin": 10
+        },
+        "barCode": "sakdmas",
+        "name": "Three Monkeys Golden Ale",
+        "description": "De alta fermentação, apresenta uma coloração dourada e uma generosa camada de espuma cremosa. Traz em seu aroma um perfil harmônico entre o malte e o lúpulo.",
+        "extra": "Nacional",
+        "photoUrl": "https://storage.googleapis.com/udrink-development.appspot.com/products/threeMonkeys.jpg",
+        "size": "355ml",
+        "volume": 355,
+        "margin": 10
+      },
+      "code": "12",
+      "price": 390,
+      "promotionalPrice": 90,
+      "count": 8996,
+      "minCount": 3,
+      "cold": true
+    },
+    {
+      "id": 16,
+      "product": {
+        "id": 7,
+        "tags": [
+          {
+            "id": 1,
+            "name": "Tinto"
+          }
+        ],
+        "category": {
+          "id": 2,
+          "position": 30,
+          "name": "Vinhos",
+          "description": "São poesias engarrafadas",
+          "photoUrl": "https://storage.googleapis.com/udrink-development.appspot.com/categories/wineImage.png",
+          "margin": 10
+        },
+        "barCode": "dasdas",
+        "name": "Amstel",
+        "description": "Pack de Amstel com 12 unidades",
+        "extra": "American",
+        "photoUrl": "https://storage.googleapis.com/udrink-development.appspot.com/products/Amstel350.png",
+        "size": "350ml",
+        "volume": 350,
+        "margin": 10
+      },
+      "code": "44",
+      "price": 495,
+      "promotionalPrice": 43,
+      "count": 83,
+      "minCount": 80,
+      "cold": false
+    }
+  ]
+}

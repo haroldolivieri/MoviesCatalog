@@ -1,0 +1,13 @@
+{
+  "data": {
+    "id": 18,
+    "email": "nadilson@gmail.com",
+    "phone": {
+      "country": "55",
+      "region": "21",
+      "number": "999999999"
+    },
+    "name": "Nadilson Ferreira",
+    "birthDate": "1977-10-13T00:00:00.000Z"
+  }
+}

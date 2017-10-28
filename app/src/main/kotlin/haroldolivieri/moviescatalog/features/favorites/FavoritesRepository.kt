@@ -13,27 +13,29 @@ import java.util.*
 
 
 interface FavoritesRepository {
-    fun favorite(movie: Movie)
+    fun favorite(movie: Movie): Observable<Movie>
     fun unFavorite(id: Int)
     fun fetch(): Observable<Movie>
+    fun deleteAll()
 }
 
 class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
         AbstractRealmRepository(configuration), FavoritesRepository {
 
     companion object {
-        private val CLAZZ = MovieRealmObject::class.java
+        private val CLAZZ_MOVIE = MovieRealmObject::class.java
+        private val CLAZZ_GENRE = GenreRealmObject::class.java
     }
 
     override fun fetch(): Observable<Movie> {
         realm().use {
-            val favorites = it.copyFromRealm(it.where(CLAZZ).findAllSorted("favoredAt", Sort.ASCENDING))
+            val favorites = it.copyFromRealm(it.where(CLAZZ_MOVIE).findAllSorted("favoredAt", Sort.ASCENDING))
             return Observable.fromIterable(favorites.map(MovieRealmObject::toMovie))
         }
     }
 
-    override fun favorite(movie: Movie) {
-        var favorite : MovieRealmObject? = null
+    override fun favorite(movie: Movie): Observable<Movie> {
+        var favorite: MovieRealmObject? = null
 
         movie.apply {
             val list = RealmList<GenreRealmObject>()
@@ -43,14 +45,22 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
                     title, popularity, backDropPath, adult, list, overview)
         }
 
-
-
         realm().use {
             it.executeTransaction {
                 it.copyToRealm(favorite)
             }
         }
+
+        return Observable.just(favorite?.toMovie())
     }
+
+    override fun deleteAll() =
+            realm().use {
+                it.executeTransaction { realm ->
+                    realm.delete(CLAZZ_MOVIE)
+                    realm.delete(CLAZZ_GENRE)
+                }
+            }
 
     override fun unFavorite(id: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
