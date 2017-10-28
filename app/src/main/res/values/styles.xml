@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SelectableItemTheme">
+        <item name="colorControlHighlight">@color/colorBlueGray200</item>
+    </style>
+
+    <style name="RippleStyle">
+        <item name="android:theme">@style/SelectableItemTheme</item>
+        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
+    </style>
 </resources>

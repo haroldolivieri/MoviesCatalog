@@ -1,6 +1,7 @@
 package haroldolivieri.moviescatalog.domain
 
 import haroldolivieri.moviescatalog.remote.entities.Genre
+import java.util.*
 
 
 data class Movie(val id: Int?,
@@ -11,4 +12,5 @@ data class Movie(val id: Int?,
                  val backDropPath: String?,
                  val adult: Boolean?,
                  val genres: List<Genre>?,
+                 val releaseDate: Date?,
                  val overview: String?)

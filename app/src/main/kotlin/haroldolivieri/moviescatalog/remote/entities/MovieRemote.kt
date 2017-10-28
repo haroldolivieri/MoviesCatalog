@@ -3,6 +3,7 @@ package haroldolivieri.moviescatalog.remote.entities
 import com.google.gson.annotations.SerializedName
 import haroldolivieri.moviescatalog.domain.Movie
 import haroldolivieri.moviescatalog.local.entities.MovieRealmObject
+import java.util.*
 
 
 data class MovieRemote(val id: Int,
@@ -12,6 +13,7 @@ data class MovieRemote(val id: Int,
                        @SerializedName("backdrop_path") val backDropPath: String,
                        val adult: Boolean,
                        @SerializedName("genre_ids") val genreIds: List<Int>,
+                       @SerializedName("release_date") val releaseDate: Date,
                        val overview: String)
 
 fun MovieRemote.toMovie(genresRemotes: List<Genre>, favorites: List<Movie>): Movie {
@@ -19,5 +21,5 @@ fun MovieRemote.toMovie(genresRemotes: List<Genre>, favorites: List<Movie>): Mov
     val favored = favorites.any { it.id == id }
 
     return Movie(id, favored, voteAverage, title, popularity,
-            "http://image.tmdb.org/t/p/w500$backDropPath", adult, gender, overview)
+            "http://image.tmdb.org/t/p/w500$backDropPath", adult, gender, releaseDate, overview)
 }

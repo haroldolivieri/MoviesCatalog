@@ -46,6 +46,7 @@ class RemoteModule {
     fun provideGsonConverterFactory(): GsonConverterFactory {
         val gsonBuilder = GsonBuilder()
         gsonBuilder.registerTypeAdapterFactory(ItemTypeAdapterFactory())
+        gsonBuilder.setDateFormat("yyyy-MM-dd")
 
         val gson = gsonBuilder.create()
         return GsonConverterFactory.create(gson)

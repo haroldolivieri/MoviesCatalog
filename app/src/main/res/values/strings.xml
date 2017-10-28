@@ -5,5 +5,6 @@
     <string name="bariol_light">fonts/Bariol_Light.otf</string>
     <string name="bariol_thin">fonts/Bariol_Thin.otf</string>
     <string name="bariol_bold">fonts/Bariol_Bold.otf</string>
+    <string name="no_movies">No results</string>
 
 </resources>

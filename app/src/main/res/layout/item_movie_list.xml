@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/movieImageView"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favoriteContainer"
+        tools:src="@drawable/placeholder_image" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/favoriteContainer"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/movieTitle"
+            fontPath="@string/bariol_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="0dp"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:maxWidth="300dp"
+            android:textColor="?android:attr/colorControlNormal"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/favoriteButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.205"
+            tools:ignore="MissingPrefix"
+            tools:text="Blade Runner"
+            android:layout_marginRight="16dp" />
+
+        <TextView
+            android:id="@+id/movieReleaseYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="0dp"
+            android:textColor="?attr/colorControlNormal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movieTitle"
+            tools:text="2017" />
+
+        <CheckBox
+            android:id="@+id/favoriteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:button="@drawable/selector_favorite_check_box"
+            android:tint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/movieTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/movieInfoContainer"
+        android:layout_width="0dp"
+        android:layout_height="57dp"
+        android:background="@color/blackTransparency"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0">
+
+        <ImageView
+            android:id="@+id/adultImageStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_clapperboard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/voteAverage"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/voteAverage"
+            fontPath="@string/bariol_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="32sp"
+            tools:ignore="MissingPrefix"
+            tools:text="7.6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/voteAverageStar"
+            app:layout_constraintLeft_toRightOf="@+id/adultImageStatus"
+            android:layout_marginRight="8dp"
+            app:layout_constraintVertical_bias="0.526"
+            android:layout_marginEnd="8dp" />
+
+        <ImageView
+            android:id="@+id/voteAverageStar"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_star"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/voteAverage" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -41,7 +41,7 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
             val list = RealmList<GenreRealmObject>()
             genres?.forEach { list.add(GenreRealmObject(it.id, it.name)) }
 
-            favorite = MovieRealmObject(id, Date(), voteAverage,
+            favorite = MovieRealmObject(id, Date(), releaseDate, voteAverage,
                     title, popularity, backDropPath, adult, list, overview)
         }
 

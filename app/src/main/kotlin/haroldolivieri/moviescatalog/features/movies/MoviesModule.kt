@@ -9,7 +9,7 @@ import io.realm.RealmConfiguration
 @Module
 class MoviesModule {
     @Provides
-    fun provideView(activity: MainActivity): MainView = activity
+    fun provideView(activity: ListMoviesActivity): MainView = activity
 
     @Provides
     fun providePresenter(presenter: MainPresenterImpl): MainPresenter = presenter
