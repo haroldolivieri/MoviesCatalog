@@ -42,6 +42,7 @@ class MainPresenterImpl
                     performMovieOrder(mainView.getGenresToFilter())
                 }
 
+        mainView.showLoading()
         fetchPopularMoviesData()
     }
 
@@ -80,7 +81,6 @@ class MainPresenterImpl
 
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { mainView.showLoading() }
                 .subscribe({
                     mainView.showGenres(this@MainPresenterImpl.genres)
                     performMovieOrder(mainView.getGenresToFilter())

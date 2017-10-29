@@ -21,9 +21,9 @@
         android:fitsSystemWindows="true">
 
         <LinearLayout
-            android:layout_marginTop="32dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
             android:orientation="vertical">
 
             <TextView
@@ -35,15 +35,16 @@
                 android:text="@string/filter_text"
                 android:textSize="14sp" />
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    android:layout_margin="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -53,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/filter_by"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@android:color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 

@@ -5,7 +5,7 @@
     <string name="bariol_light">fonts/Bariol_Light.otf</string>
     <string name="bariol_thin">fonts/Bariol_Thin.otf</string>
     <string name="bariol_bold">fonts/Bariol_Bold.otf</string>
-    <string name="no_movies">No results</string>
+    <string name="no_movies">No results :(</string>
     <string name="filter_text">The movie list content will be updated in real time</string>
     <string name="filter_by_name">Name</string>
     <string name="order_by">Order by</string>
@@ -25,5 +25,7 @@
     <string name="favorite_transition">favoriteTransitionName</string>
     <string name="year_transition">year_transition_name</string>
     <string name="fav_container_transition">favoriteContainerTransitionName</string>
+    <string name="share_transition">shareTransitionName</string>
+    <string name="toolbar_title">Awesome Movies Catalog</string>
 
 </resources>

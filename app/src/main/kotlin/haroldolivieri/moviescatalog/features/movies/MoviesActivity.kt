@@ -2,6 +2,7 @@ package haroldolivieri.moviescatalog.features.movies
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
@@ -98,14 +99,6 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
         showSnackBar(recyclerView, message)
     }
 
-    override fun showLoading() {
-        Log.i(TAG, "start movies download")
-    }
-
-    override fun hideLoading() {
-        Log.i(TAG, "finish movies download")
-    }
-
     override fun showMovies(movies: List<Movie>?) {
         movieAdapter.setMovies(movies)
     }
@@ -151,6 +144,7 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
 
     private fun setupToolbar() {
         setSupportActionBar(toolbar)
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, android.R.color.white))
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = ""
     }
