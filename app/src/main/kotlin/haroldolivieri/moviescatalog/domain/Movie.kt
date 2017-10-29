@@ -1,6 +1,7 @@
 package haroldolivieri.moviescatalog.domain
 
 import haroldolivieri.moviescatalog.repository.remote.entities.Genre
+import java.io.Serializable
 import java.util.*
 
 
@@ -13,4 +14,4 @@ data class Movie(val id: Int?,
                  val adult: Boolean?,
                  val genres: List<Genre>?,
                  val releaseDate: Date?,
-                 val overview: String?)
+                 val overview: String?) : Serializable

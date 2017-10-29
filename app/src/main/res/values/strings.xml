@@ -19,5 +19,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="select_all">Select All</string>
+    <string name="image_transition">imageTransitionName</string>
+    <string name="vote_transition">voteTransitionName</string>
+    <string name="title_transition">titleTransitionName</string>
+    <string name="favorite_transition">favoriteTransitionName</string>
+    <string name="year_transition">year_transition_name</string>
+    <string name="fav_container_transition">favoriteContainerTransitionName</string>
 
 </resources>

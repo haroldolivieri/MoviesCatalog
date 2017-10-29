@@ -9,15 +9,17 @@ import haroldolivieri.moviescatalog.repository.remote.entities.MovieRemote
 import haroldolivieri.moviescatalog.repository.remote.entities.toMovie
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
-
 
 interface MainPresenter {
     fun fetchPopularMoviesData(page: Int = 1)
     fun favoriteAction(checked: Boolean, movie: Movie)
     fun performMovieOrder(filterGenres: HashMap<Int, Boolean>)
+    fun onCreate()
+    fun onDestroy()
 }
 
 class MainPresenterImpl
@@ -27,6 +29,27 @@ class MainPresenterImpl
 
     private var movies: MutableList<Movie>? = null
     private var genres: List<Genre>? = null
+    private var disposable: Disposable? = null
+
+    override fun onCreate() {
+        disposable = favoritesRepository
+                .getFavoredItemObservable()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    val position = movies?.indexOfFirst { movie -> movie.id == it.movieId }
+                    movies?.get(position!!)?.favored = it.favored
+                    performMovieOrder(mainView.getGenresToFilter())
+                }
+
+        fetchPopularMoviesData()
+    }
+
+    override fun onDestroy() {
+        if (!disposable?.isDisposed!!) {
+            disposable?.dispose()
+        }
+    }
 
     override fun favoriteAction(checked: Boolean, movie: Movie) {
         if (checked) {
@@ -60,7 +83,7 @@ class MainPresenterImpl
                 .doOnSubscribe { mainView.showLoading() }
                 .subscribe({
                     mainView.showGenres(this@MainPresenterImpl.genres)
-                    performMovieOrder(mainView.getGendersToFilter())
+                    performMovieOrder(mainView.getGenresToFilter())
                 }, { mainView.showError(it) }, { mainView.hideLoading() })
     }
 

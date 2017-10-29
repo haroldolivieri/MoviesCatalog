@@ -1,5 +1,6 @@
 package haroldolivieri.moviescatalog.features.movies
 
+import android.app.Activity
 import android.content.Context
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.RecyclerView
@@ -23,7 +24,7 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
                    private val context: Context,
                    private val favClick: (favored: Boolean, movie: Movie) -> Unit,
                    private val itemClick: (movie: Movie,
-                                            options: ActivityOptionsCompat) -> Unit?) :
+                                           options: ActivityOptionsCompat) -> Unit?) :
         RecyclerView.Adapter<MovieAdapter.MoviesViewHolder>() {
 
     val favItems: MutableMap<Int, Boolean> = HashMap()
@@ -38,7 +39,6 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
         refreshFavMap(movies)
         notifyDataSetChanged()
     }
-
 
     private fun refreshFavMap(newItems: List<Movie>?) {
         newItems?.map { it.id?.let { it1 -> it.favored?.let { it2 -> favItems.put(it1, it2) } } }
@@ -58,6 +58,8 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
         private val favAction by lazy { view.findViewById<CheckBox>(R.id.favoriteButton) }
         private val image by lazy { view.findViewById<ImageView>(R.id.movieImageView) }
         private val adultImage by lazy { view.findViewById<ImageView>(R.id.adultImageStatus) }
+        private val voteContainer by lazy { view.findViewById<View>(R.id.voteContainer) }
+        private val favoriteContainer by lazy { view.findViewById<View>(R.id.favoriteContainer) }
 
         fun bind(movie: Movie) {
 
@@ -83,22 +85,24 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
 
             favAction.setOnClickListener { v ->
                 val checked = (v as CheckBox).isChecked
-
-                movie.id?.let { favItems.put(it, checked) }
                 favClick(checked, movie)
             }
 
             itemView.setOnClickListener {
-                //                val p1 = android.support.v4.util.Pair(badAssImage as View,
-//                        context.getString(R.string.badass_image_transition_name))
-//                val p2 = android.support.v4.util.Pair(badAssName as View,
-//                        context.getString(R.string.badass_name_transition_name))
-//                val p3 = android.support.v4.util.Pair(contentName as View,
-//                        context.getString(R.string.content_transition_name))
-//                val options = ActivityOptionsCompat
-//                        .makeSceneTransitionAnimation(context as Activity?, p1, p2, p3)
-//
-//                itemClick(movie, options)
+                val p1 = android.support.v4.util.Pair(title as View,
+                        context.getString(R.string.title_transition))
+                val p2 = android.support.v4.util.Pair(year as View,
+                        context.getString(R.string.year_transition))
+                val p3 = android.support.v4.util.Pair(voteContainer as View,
+                        context.getString(R.string.vote_transition))
+                val p4 = android.support.v4.util.Pair(favAction as View,
+                        context.getString(R.string.favorite_transition))
+                val p5 = android.support.v4.util.Pair(favoriteContainer as View,
+                        context.getString(R.string.fav_container_transition))
+                val options = ActivityOptionsCompat
+                        .makeSceneTransitionAnimation(context as Activity?, p1, p2, p3, p4, p5)
+
+                itemClick(movie, options)
             }
         }
     }

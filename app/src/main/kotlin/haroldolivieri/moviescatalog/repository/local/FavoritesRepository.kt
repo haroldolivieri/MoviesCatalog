@@ -4,6 +4,7 @@ import haroldolivieri.moviescatalog.domain.Movie
 import haroldolivieri.moviescatalog.repository.local.entities.GenreRealmObject
 import haroldolivieri.moviescatalog.repository.local.entities.MovieRealmObject
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import io.realm.RealmConfiguration
 import io.realm.RealmList
 import io.realm.Sort
@@ -16,6 +17,7 @@ interface FavoritesRepository {
     fun unfavorite(id: Int)
     fun fetch(): Observable<Movie>
     fun deleteAll()
+    fun getFavoredItemObservable(): Observable<FavoredEvent>
 }
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -26,6 +28,8 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
         private val CLAZZ_MOVIE = MovieRealmObject::class.java
         private val CLAZZ_GENRE = GenreRealmObject::class.java
     }
+
+    private val favoredSubject: PublishSubject<FavoredEvent> = PublishSubject.create()
 
     override fun fetch(): Observable<Movie> {
         realm().use {
@@ -55,7 +59,19 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
             return Observable.error(e)
         }
 
+        favoredSubject.onNext(FavoredEvent(true, movie.id!!))
         return Observable.just(favorite?.toMovie())
+    }
+
+    override fun unfavorite(id: Int) {
+        realm().use {
+            val movie : MovieRealmObject? = it.where(CLAZZ_MOVIE).equalTo("id", id).findFirst()
+            it.executeTransaction {
+                movie?.deleteFromRealm()
+            }
+        }
+
+        favoredSubject.onNext(FavoredEvent(false, id))
     }
 
     override fun deleteAll() =
@@ -66,13 +82,8 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
                 }
             }
 
-    override fun unfavorite(id: Int) {
-        realm().use {
-            val movie : MovieRealmObject? = it.where(CLAZZ_MOVIE).equalTo("id", id).findFirst()
-            it.executeTransaction {
-                movie?.deleteFromRealm()
-            }
-        }
-    }
-
+    override fun getFavoredItemObservable() : Observable<FavoredEvent> = favoredSubject
 }
+
+data class FavoredEvent(val favored: Boolean, val movieId: Int)
+

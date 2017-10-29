@@ -14,6 +14,7 @@ import haroldolivieri.moviescatalog.R
 import haroldolivieri.moviescatalog.custom.EndlessRecyclerViewScrollListener
 import haroldolivieri.moviescatalog.domain.Movie
 import haroldolivieri.moviescatalog.features.BaseActivity
+import haroldolivieri.moviescatalog.features.details.DetailsIntent
 import haroldolivieri.moviescatalog.repository.remote.entities.Genre
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_movies.*
@@ -27,17 +28,13 @@ interface MainView {
     fun showError(throwable: Throwable)
     fun showMessage(message: String)
     fun showGenres(genres: List<Genre>?)
-    fun resetList()
-    fun getGendersToFilter(): HashMap<Int, Boolean>
+    fun getGenresToFilter(): HashMap<Int, Boolean>
 }
 
 class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseActivity(),
         MainView, NavigationView.OnNavigationItemSelectedListener {
 
-    override fun resetList() {
-        movieAdapter.setMovies(null)
-        endLessScrollListener.resetState()
-    }
+    @Inject lateinit var mainPresenter: MainPresenter
 
     val layoutManager = LinearLayoutManager(this)
     val endLessScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
@@ -48,11 +45,12 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
         }
     }
 
-    @Inject lateinit var mainPresenter: MainPresenter
     val movieAdapter by lazy {
         MovieAdapter(context = this@MoviesActivity,
                 favClick = { checked, movie -> mainPresenter.favoriteAction(checked, movie) },
-                itemClick = { _, _ -> })
+                itemClick = { movie, options ->
+                    startActivity(DetailsIntent(movie), options.toBundle())
+                })
     }
 
     val genreAdapter by lazy {
@@ -66,13 +64,15 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
 
         setupFilterNavigationDrawer()
         setupToolbar()
-
         selectAllGenres.setOnClickListener { onFilterCleared() }
 
-        mainPresenter.fetchPopularMoviesData()
+        mainPresenter.onCreate()
     }
 
-    override fun getGendersToFilter(): HashMap<Int, Boolean> = genreAdapter.getSelectedGenres()
+    override fun onDestroy() {
+        super.onDestroy()
+        mainPresenter.onDestroy()
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawerLayout.closeDrawer(GravityCompat.END)
@@ -91,6 +91,8 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
         }
         else -> super.onOptionsItemSelected(item)
     }
+
+    override fun getGenresToFilter(): HashMap<Int, Boolean> = genreAdapter.getSelectedGenres()
 
     override fun showMessage(message: String) {
         showSnackBar(recyclerView, message)
