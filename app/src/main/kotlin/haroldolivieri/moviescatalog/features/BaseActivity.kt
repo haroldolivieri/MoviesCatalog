@@ -14,8 +14,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
-
-
+import java.time.Duration
 
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
@@ -24,6 +23,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     abstract val layout: Int
     private var loadingContent: View? = null
     private var rootView: ViewGroup? = null
+    private var snackBar : Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,10 +67,17 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         rootView?.addView(loadingContent)
     }
 
-    internal fun showSnackBar(view: View, message: String) {
-        val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-        val snackText = snackBar.view.findViewById<TextView>(android.support.design.R.id.snackbar_text)
-        snackText.setTextColor(ContextCompat.getColor(this, android.R.color.white))
-        snackBar.show()
+    internal fun showSnackBar(view: View, message: String, duration: Int = Snackbar.LENGTH_LONG) {
+        snackBar = Snackbar.make(view, message, duration)
+        val snackBarView = snackBar?.view
+        snackBarView?.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white))
+
+        val snackText = snackBar?.view?.findViewById<TextView>(android.support.design.R.id.snackbar_text)
+        snackText?.setTextColor(ContextCompat.getColor(this, android.R.color.black))
+        snackBar?.show()
+    }
+
+    internal  fun hideSnackBar() {
+        snackBar?.dismiss()
     }
 }

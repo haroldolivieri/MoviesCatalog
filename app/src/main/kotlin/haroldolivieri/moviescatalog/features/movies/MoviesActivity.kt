@@ -2,6 +2,7 @@ package haroldolivieri.moviescatalog.features.movies
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -76,10 +77,14 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
     }
 
     override fun onConnected() {
+        hideSnackBar()
         mainPresenter.onConnected()
     }
 
     override fun onDisconnected() {
+        showSnackBar(recyclerView,
+                "You are disconnected. Please check out your internet",
+                Snackbar.LENGTH_INDEFINITE)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
