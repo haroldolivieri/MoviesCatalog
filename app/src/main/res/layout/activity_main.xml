@@ -23,7 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:orientation="vertical">
 
             <TextView
@@ -31,7 +31,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:layout_marginTop="32dp"
                 android:text="@string/filter_text"
                 android:textSize="14sp" />
 
@@ -44,7 +43,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -78,6 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <TextView
+                        android:id="@+id/emptyViewGenre"
                         fontPath="@string/bariol_bold"
                         android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
@@ -85,7 +86,7 @@
                         android:text="@string/genres_not_loaded" />
 
                     <haroldolivieri.moviescatalog.custom.RecyclerViewEmpty
-                        android:id="@+id/categoriesList"
+                        android:id="@+id/genreRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </FrameLayout>

@@ -143,8 +143,9 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
         recyclerView.setEmptyView(emptyView)
         recyclerView.addOnScrollListener(endLessScrollListener)
 
-        categoriesList.adapter = genreAdapter
-        categoriesList.layoutManager = StaggeredGridLayoutManager(2, 1)
+        genreRecyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
+        genreRecyclerView.adapter = genreAdapter
+        genreRecyclerView.setEmptyView(emptyViewGenre)
     }
 
     private fun setupFilterNavigationDrawer() {
