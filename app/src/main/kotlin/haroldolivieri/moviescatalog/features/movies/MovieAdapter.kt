@@ -39,6 +39,7 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
         notifyDataSetChanged()
     }
 
+
     private fun refreshFavMap(newItems: List<Movie>?) {
         newItems?.map { it.id?.let { it1 -> it.favored?.let { it2 -> favItems.put(it1, it2) } } }
     }

@@ -15,7 +15,7 @@ class GenreAdapter(private var genres: List<Genre>? = null,
                    private val itemClick: (genres: HashMap<Int, Boolean>) -> Unit?) :
         RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
 
-    val favItems: HashMap<Int, Boolean> = HashMap()
+    var selectedGenresFilter: HashMap<Int, Boolean> = HashMap()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_category_list, parent, false)
@@ -23,12 +23,18 @@ class GenreAdapter(private var genres: List<Genre>? = null,
     }
 
     fun getSelectedGenres(): HashMap<Int, Boolean> =
-            favItems.filter { it.value } as HashMap<Int, Boolean>
+            selectedGenresFilter.filter { it.value } as HashMap<Int, Boolean>
+
+    fun getAllGenres(): HashMap<Int, Boolean> = selectedGenresFilter
+
+    fun setSelectedGenres(selectedGenresFilter: HashMap<Int, Boolean>) {
+        this.selectedGenresFilter = selectedGenresFilter
+    }
 
     fun setGenres(genres: List<Genre>?) {
         if (this.genres == null) {
             this.genres = genres
-            genres?.map { it.id?.let { it1 -> favItems.put(it1, true) } }
+            genres?.map { it.id?.let { it1 -> selectedGenresFilter.put(it1, true) } }
             notifyDataSetChanged()
         }
     }
@@ -45,11 +51,11 @@ class GenreAdapter(private var genres: List<Genre>? = null,
 
         fun bind(genre: Genre) {
             categoryCheckBox.text = genre.name
-            categoryCheckBox.isChecked = favItems[genre.id]!!
+            categoryCheckBox.isChecked = selectedGenresFilter[genre.id]!!
 
             categoryCheckBox.setOnClickListener {
-                favItems.put(genre.id!!, !favItems[genre.id]!!)
-                itemClick(favItems.filter { it.value } as HashMap<Int, Boolean>)
+                selectedGenresFilter.put(genre.id!!, !selectedGenresFilter[genre.id]!!)
+                itemClick(selectedGenresFilter.filter { it.value } as HashMap<Int, Boolean>)
             }
         }
     }

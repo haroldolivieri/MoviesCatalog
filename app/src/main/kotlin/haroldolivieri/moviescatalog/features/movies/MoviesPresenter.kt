@@ -65,9 +65,8 @@ class MainPresenterImpl
     }
 
     override fun performMovieOrder(filterGenres: HashMap<Int, Boolean>) {
-        val result = movies
 
-        result?.filter { movie ->
+        val result = movies?.filter { movie ->
             val temp = movie.genres?.filter {
                 filterGenres.containsKey(it.id)
             }

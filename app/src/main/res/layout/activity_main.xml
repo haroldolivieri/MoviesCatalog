@@ -58,7 +58,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/selectAll"
+                        android:id="@+id/selectAllGenres"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         fontPath="@string/bariol_bold"
                         android:layout_width="wrap_content"

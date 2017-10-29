@@ -67,6 +67,8 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
         setupFilterNavigationDrawer()
         setupToolbar()
 
+        selectAllGenres.setOnClickListener { onFilterCleared() }
+
         mainPresenter.fetchPopularMoviesData()
     }
 
@@ -112,6 +114,15 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
 
     override fun showError(throwable: Throwable) {
         Log.e(TAG, "error found -> ${throwable.localizedMessage}")
+    }
+
+    private fun onFilterCleared() {
+        val selectedGenres = genreAdapter.getAllGenres()
+        selectedGenres.forEach { i, _ -> selectedGenres.put(i, true) }
+        genreAdapter.setSelectedGenres(selectedGenres)
+        genreAdapter.notifyDataSetChanged()
+
+        mainPresenter.performMovieOrder(selectedGenres)
     }
 
     private fun loadNextPageData(page: Int) {
