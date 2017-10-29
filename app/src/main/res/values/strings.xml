@@ -27,5 +27,6 @@
     <string name="fav_container_transition">favoriteContainerTransitionName</string>
     <string name="share_transition">shareTransitionName</string>
     <string name="toolbar_title">Awesome Movies Catalog</string>
+    <string name="genres_not_loaded">Genres not loaded yet</string>
 
 </resources>

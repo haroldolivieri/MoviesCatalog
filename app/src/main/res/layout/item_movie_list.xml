@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/movieImageView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         android:scaleType="centerCrop"
         android:transitionName="@string/image_transition"
         app:layout_constraintHorizontal_bias="0.0"

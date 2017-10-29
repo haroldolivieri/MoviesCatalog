@@ -74,10 +74,21 @@
                         android:theme="@style/BorderlessButton" />
                 </RelativeLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/categoriesList"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent">
+                    <TextView
+                        fontPath="@string/bariol_bold"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/genres_not_loaded" />
+
+                    <haroldolivieri.moviescatalog.custom.RecyclerViewEmpty
+                        android:id="@+id/categoriesList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </FrameLayout>
 
 
             </LinearLayout>

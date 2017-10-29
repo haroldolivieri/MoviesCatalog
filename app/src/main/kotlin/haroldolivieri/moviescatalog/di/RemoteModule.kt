@@ -98,6 +98,8 @@ class RemoteModule {
                 .addInterceptor(CacheRevalidationInterceptor(context))
                 .cache(cache)
                 .addInterceptor(loggingInterceptor)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(2, TimeUnit.SECONDS)
 
         return builder.build()
     }

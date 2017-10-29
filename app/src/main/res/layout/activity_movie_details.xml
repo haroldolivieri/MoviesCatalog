@@ -8,6 +8,7 @@
 
     <ImageView
         android:id="@+id/movieImage"
+        android:background="?attr/colorPrimary"
         android:layout_width="0dp"
         android:layout_height="300dp"
         android:scaleType="centerCrop"

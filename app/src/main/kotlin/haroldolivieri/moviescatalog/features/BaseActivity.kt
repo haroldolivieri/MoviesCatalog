@@ -11,6 +11,11 @@ import android.widget.TextView
 import dagger.android.support.DaggerAppCompatActivity
 import haroldolivieri.moviescatalog.R
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
+
+
 
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
@@ -23,7 +28,17 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
+
+        ReactiveNetwork.observeInternetConnectivity()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { connected ->
+                    if(connected) onConnected() else onDisconnected()
+                }
     }
+
+    abstract fun onConnected()
+    abstract fun onDisconnected()
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))

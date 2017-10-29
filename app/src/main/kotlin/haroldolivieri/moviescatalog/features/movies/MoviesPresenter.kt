@@ -20,6 +20,7 @@ interface MainPresenter {
     fun performMovieOrder(filterGenres: HashMap<Int, Boolean>)
     fun onCreate()
     fun onDestroy()
+    fun onConnected()
 }
 
 class MainPresenterImpl
@@ -49,6 +50,13 @@ class MainPresenterImpl
     override fun onDestroy() {
         if (!disposable?.isDisposed!!) {
             disposable?.dispose()
+        }
+    }
+
+    override fun onConnected() {
+        if (movies == null || movies?.size == 0) {
+            mainView.showLoading()
+            fetchPopularMoviesData(1)
         }
     }
 

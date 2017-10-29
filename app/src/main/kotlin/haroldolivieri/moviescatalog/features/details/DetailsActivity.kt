@@ -44,17 +44,19 @@ class DetailsActivity(override val layout: Int = R.layout.activity_movie_details
         shareAction.setOnClickListener { setupShareAction() }
     }
 
+    override fun onConnected() {}
+    override fun onDisconnected() {}
+
     private fun setupShareAction() {
-        val s = Intent(android.content.Intent.ACTION_SEND)
-        s.type = "text/plain"
-        s.putExtra(Intent.EXTRA_SUBJECT, "Movie Recommendation")
-        s.putExtra(Intent.EXTRA_TEXT, "Movies Catalog - Recommendation\n\n" +
+        val intent = Intent(android.content.Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, "Movies Catalog - Recommendation\n\n" +
                 "Title: ${movie.title}\n" +
                 "Release Date: ${movie.releaseDate?.formatToString("yyyy-MM-dd")}\n" +
                 "Genres: ${movieGenres.text}\n" +
                 "${movie.backDropPath}")
 
-        startActivity(Intent.createChooser(s, "Quote"))
+        startActivity(Intent.createChooser(intent, "Movie Recommendation"))
     }
 
     private fun setupFavAction() {
@@ -68,6 +70,7 @@ class DetailsActivity(override val layout: Int = R.layout.activity_movie_details
         movie.apply {
             val options = RequestOptions()
                     .priority(Priority.HIGH)
+                    .placeholder(R.drawable.no_image)
 
             Glide.with(this@DetailsActivity)
                     .load(movie.backDropPath)

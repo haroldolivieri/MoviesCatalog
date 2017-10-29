@@ -75,6 +75,13 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
         mainPresenter.onDestroy()
     }
 
+    override fun onConnected() {
+        mainPresenter.onConnected()
+    }
+
+    override fun onDisconnected() {
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawerLayout.closeDrawer(GravityCompat.END)
         return true
@@ -108,6 +115,7 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
     }
 
     override fun showError(throwable: Throwable) {
+        hideLoading()
         Log.e(TAG, "error found -> ${throwable.localizedMessage}")
     }
 
