@@ -1,6 +1,8 @@
 package haroldolivieri.moviescatalog.features.movies
 
 import android.util.Log
+import haroldolivieri.moviescatalog.di.SchedulerProvider
+import haroldolivieri.moviescatalog.di.qualifier.RealScheduler
 import haroldolivieri.moviescatalog.domain.Movie
 import haroldolivieri.moviescatalog.repository.local.FavoritesRepository
 import haroldolivieri.moviescatalog.repository.remote.MoviesRepository
@@ -8,25 +10,24 @@ import haroldolivieri.moviescatalog.repository.remote.entities.Genre
 import haroldolivieri.moviescatalog.repository.remote.entities.MovieRemote
 import haroldolivieri.moviescatalog.repository.remote.entities.toMovie
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-interface MainPresenter {
+interface MoviesPresenter {
     fun fetchPopularMoviesData(page: Int = 1)
     fun favoriteAction(checked: Boolean, movie: Movie)
-    fun performMovieOrder(filterGenres: HashMap<Int, Boolean>)
+    fun performMovieFilter(filterGenres: HashMap<Int, Boolean>)
     fun onCreate()
     fun onDestroy()
     fun onConnected()
 }
 
-class MainPresenterImpl
-@Inject constructor(private val mainView: MainView,
+open class MoviesPresenterImpl
+@Inject constructor(private val mainView: MoviesView,
                     private val moviesRepository: MoviesRepository,
-                    private val favoritesRepository: FavoritesRepository) : MainPresenter {
+                    private val favoritesRepository: FavoritesRepository,
+                    @RealScheduler private val schedulerProvider: SchedulerProvider) : MoviesPresenter {
 
     private var movies: MutableList<Movie>? = null
     private var genres: List<Genre>? = null
@@ -35,12 +36,12 @@ class MainPresenterImpl
     override fun onCreate() {
         disposable = favoritesRepository
                 .getFavoredItemObservable()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .subscribe {
                     val position = movies?.indexOfFirst { movie -> movie.id == it.movieId }
                     movies?.get(position!!)?.favored = it.favored
-                    performMovieOrder(mainView.getGenresToFilter())
+                    performMovieFilter(mainView.getGenresToFilter())
                 }
 
         mainView.showLoading()
@@ -87,16 +88,15 @@ class MainPresenterImpl
                     matchWithFavoredMovies()
                     return@BiFunction this.movies!!
 
-                }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                }).subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .subscribe({
-                    mainView.showGenres(this@MainPresenterImpl.genres)
-                    performMovieOrder(mainView.getGenresToFilter())
+                    mainView.showGenres(this@MoviesPresenterImpl.genres)
+                    performMovieFilter(mainView.getGenresToFilter())
                 }, { mainView.showError(it) }, { mainView.hideLoading() })
     }
 
-    override fun performMovieOrder(filterGenres: HashMap<Int, Boolean>) {
-
+    override fun performMovieFilter(filterGenres: HashMap<Int, Boolean>) {
         val result = movies?.filter { movie ->
             val temp = movie.genres?.filter {
                 filterGenres.containsKey(it.id)

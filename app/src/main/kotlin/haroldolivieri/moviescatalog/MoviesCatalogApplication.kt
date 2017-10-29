@@ -9,7 +9,7 @@ import io.realm.RealmConfiguration
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
-class MoviesCatalogApplication : DaggerApplication() {
+open class MoviesCatalogApplication : DaggerApplication() {
     companion object {
         lateinit var applicationComponent: ApplicationComponent
     }

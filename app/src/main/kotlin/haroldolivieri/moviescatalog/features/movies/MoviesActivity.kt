@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_movies.*
 import java.util.*
 import javax.inject.Inject
 
-interface MainView {
+interface MoviesView {
     fun showLoading()
     fun hideLoading()
     fun showMovies(movies: List<Movie>?)
@@ -34,9 +34,9 @@ interface MainView {
 }
 
 class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseActivity(),
-        MainView, NavigationView.OnNavigationItemSelectedListener {
+        MoviesView, NavigationView.OnNavigationItemSelectedListener {
 
-    @Inject lateinit var mainPresenter: MainPresenter
+    @Inject lateinit var mainPresenter: MoviesPresenter
 
     val layoutManager = LinearLayoutManager(this)
     val endLessScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
@@ -57,7 +57,7 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
 
     val genreAdapter by lazy {
         GenreAdapter(context = this@MoviesActivity,
-                itemClick = { genres -> mainPresenter.performMovieOrder(filterGenres = genres) })
+                itemClick = { genres -> mainPresenter.performMovieFilter(filterGenres = genres) })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,7 +130,7 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
         genreAdapter.setSelectedGenres(selectedGenres)
         genreAdapter.notifyDataSetChanged()
 
-        mainPresenter.performMovieOrder(selectedGenres)
+        mainPresenter.performMovieFilter(selectedGenres)
     }
 
     private fun loadNextPageData(page: Int) {
