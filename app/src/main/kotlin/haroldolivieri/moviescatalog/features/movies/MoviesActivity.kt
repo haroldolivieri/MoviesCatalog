@@ -6,14 +6,18 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import haroldolivieri.moviescatalog.R
 import haroldolivieri.moviescatalog.custom.EndlessRecyclerViewScrollListener
 import haroldolivieri.moviescatalog.domain.Movie
 import haroldolivieri.moviescatalog.features.BaseActivity
+import haroldolivieri.moviescatalog.repository.remote.entities.Genre
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_movies.*
+import java.util.*
 import javax.inject.Inject
 
 interface MainView {
@@ -21,27 +25,52 @@ interface MainView {
     fun hideLoading()
     fun showMovies(movies: List<Movie>?)
     fun showError(throwable: Throwable)
+    fun showMessage(message: String)
+    fun showGenres(genres: List<Genre>?)
+    fun resetList()
+    fun getGendersToFilter(): HashMap<Int, Boolean>
 }
 
 class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseActivity(),
         MainView, NavigationView.OnNavigationItemSelectedListener {
 
+    override fun resetList() {
+        movieAdapter.setMovies(null)
+        endLessScrollListener.resetState()
+    }
+
+    val layoutManager = LinearLayoutManager(this)
+    val endLessScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
+        override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+            if (totalItemsCount < 50) {
+                loadNextPageData(page + 1)
+            }
+        }
+    }
+
     @Inject lateinit var mainPresenter: MainPresenter
     val movieAdapter by lazy {
-        MoviesAdapter(context = this@MoviesActivity,
+        MovieAdapter(context = this@MoviesActivity,
                 favClick = { checked, movie -> mainPresenter.favoriteAction(checked, movie) },
                 itemClick = { _, _ -> })
     }
 
+    val genreAdapter by lazy {
+        GenreAdapter(context = this@MoviesActivity,
+                itemClick = { genres -> mainPresenter.performMovieOrder(filterGenres = genres) })
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupRecyclerView()
+        setupRecyclersView()
 
         setupFilterNavigationDrawer()
         setupToolbar()
 
         mainPresenter.fetchPopularMoviesData()
     }
+
+    override fun getGendersToFilter(): HashMap<Int, Boolean> = genreAdapter.getSelectedGenres()
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawerLayout.closeDrawer(GravityCompat.END)
@@ -61,30 +90,42 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
         else -> super.onOptionsItemSelected(item)
     }
 
-    override fun showLoading() {}
+    override fun showMessage(message: String) {
+        showSnackBar(recyclerView, message)
+    }
 
-    override fun hideLoading() {}
+    override fun showLoading() {
+        Log.i(TAG, "start movies download")
+    }
+
+    override fun hideLoading() {
+        Log.i(TAG, "finish movies download")
+    }
 
     override fun showMovies(movies: List<Movie>?) {
         movieAdapter.setMovies(movies)
     }
 
-    override fun showError(throwable: Throwable) {
-        throwable.message?.let { showSnackBar(recyclerView, it) }
+    override fun showGenres(genres: List<Genre>?) {
+        genreAdapter.setGenres(genres)
     }
 
-    private fun setupRecyclerView() {
-        val linearLayoutManager = LinearLayoutManager(this)
-        val endLessScrollListener = object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
-            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                loadNextPageData(page + 1)
-            }
-        }
+    override fun showError(throwable: Throwable) {
+        Log.e(TAG, "error found -> ${throwable.localizedMessage}")
+    }
 
-        recyclerView.layoutManager = linearLayoutManager
+    private fun loadNextPageData(page: Int) {
+        mainPresenter.fetchPopularMoviesData(page)
+    }
+
+    private fun setupRecyclersView() {
+        recyclerView.layoutManager = layoutManager
         recyclerView.adapter = movieAdapter
         recyclerView.setEmptyView(emptyView)
         recyclerView.addOnScrollListener(endLessScrollListener)
+
+        categoriesList.adapter = genreAdapter
+        categoriesList.layoutManager = StaggeredGridLayoutManager(2, 1)
     }
 
     private fun setupFilterNavigationDrawer() {
@@ -99,9 +140,5 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = ""
-    }
-
-    private fun loadNextPageData(page: Int) {
-        mainPresenter.fetchPopularMoviesData(page)
     }
 }

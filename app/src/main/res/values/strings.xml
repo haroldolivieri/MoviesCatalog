@@ -8,12 +8,16 @@
     <string name="no_movies">No results</string>
     <string name="filter_text">The movie list content will be updated in real time</string>
     <string name="filter_by_name">Name</string>
-    <string name="order_by">Order by release date</string>
-    <string name="filter_by">Filter by categories</string>
+    <string name="order_by">Order by</string>
+    <string name="vote_average">Vote Average</string>
+    <string name="release_date">Release Date</string>
+
+    <string name="filter_by">Filter by genres</string>
     <string name="order_asc">ASC</string>
     <string name="order_desc">DESC</string>
     <string name="category_placeholder">Comedy</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="select_all">Select All</string>
 
 </resources>

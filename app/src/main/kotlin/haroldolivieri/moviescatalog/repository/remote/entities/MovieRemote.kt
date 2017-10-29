@@ -15,10 +15,8 @@ data class MovieRemote(val id: Int,
                        @SerializedName("release_date") val releaseDate: Date,
                        val overview: String)
 
-fun MovieRemote.toMovie(genresRemotes: List<Genre>, favorites: List<Movie>): Movie {
+fun MovieRemote.toMovie(genresRemotes: List<Genre>): Movie {
     val gender = genreIds.map { genreId -> genresRemotes.first { it.id == genreId } }
-    val favored = favorites.any { it.id == id }
-
-    return Movie(id, favored, voteAverage, title, popularity,
+    return Movie(id, false, voteAverage, title, popularity,
             "http://image.tmdb.org/t/p/w500$backDropPath", adult, gender, releaseDate, overview)
 }

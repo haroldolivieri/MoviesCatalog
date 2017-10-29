@@ -21,80 +21,57 @@
         android:fitsSystemWindows="true">
 
         <LinearLayout
+            android:layout_marginTop="32dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="32dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="48dp">
-
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/filterMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/filter_text"
                 android:textSize="14sp" />
 
-
-            <TextView
-                android:id="@+id/orderByLabel"
-                fontPath="@string/bariol_bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="32dp"
-                android:text="@string/order_by"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp">
-
-                    <RadioButton
-                        android:id="@+id/orderNameAsc"
-                        android:layout_width="96dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/selector_radio_button"
-                        android:button="@android:color/transparent"
-                        android:gravity="center"
-                        android:text="@string/order_asc"
-                        android:textColor="@color/text_selector_radio_button" />
-
-                    <RadioButton
-                        android:id="@+id/orderNameDesc"
-                        android:layout_width="96dp"
-                        android:layout_height="32dp"
-                        android:layout_marginLeft="8dp"
-                        android:background="@drawable/selector_radio_button"
-                        android:button="@android:color/transparent"
-                        android:checked="true"
-                        android:gravity="center"
-                        android:text="@string/order_desc"
-                        android:textColor="@color/text_selector_radio_button" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/filterByLabel"
-                    fontPath="@string/bariol_bold"
+                <RelativeLayout
+                    android:layout_margin="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="32dp"
-                    android:text="@string/filter_by"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/filterByLabel"
+                        fontPath="@string/bariol_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/filter_by"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/selectAll"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        fontPath="@string/bariol_bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:padding="8dp"
+                        android:text="@string/select_all"
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:theme="@style/BorderlessButton" />
+                </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/categoriesList"

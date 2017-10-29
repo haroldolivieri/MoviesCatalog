@@ -10,6 +10,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BorderlessButton" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/black_alpha19</item>
+    </style>
+
     <style name="SelectableItemTheme">
         <item name="colorControlHighlight">@color/colorBlueGray200</item>
     </style>

@@ -19,7 +19,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.haroldolivieri.badasseslist"
+        applicationId "haroldolivieri.moviescatalog"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode application.versionCode

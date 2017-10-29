@@ -19,12 +19,12 @@ import java.util.*
 import kotlin.collections.HashMap
 
 
-class MoviesAdapter(private var movies: MutableList<Movie>? = null,
-                    private val context: Context,
-                    private val favClick: (favored: Boolean, movie: Movie) -> Unit,
-                    private val itemClick: (movie: Movie,
+class MovieAdapter(private var movies: MutableList<Movie>? = null,
+                   private val context: Context,
+                   private val favClick: (favored: Boolean, movie: Movie) -> Unit,
+                   private val itemClick: (movie: Movie,
                                             options: ActivityOptionsCompat) -> Unit?) :
-        RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+        RecyclerView.Adapter<MovieAdapter.MoviesViewHolder>() {
 
     val favItems: MutableMap<Int, Boolean> = HashMap()
 
@@ -34,12 +34,7 @@ class MoviesAdapter(private var movies: MutableList<Movie>? = null,
     }
 
     fun setMovies(movies: List<Movie>?) {
-        if (this.movies == null) {
-            this.movies = movies as MutableList<Movie>?
-        } else {
-            movies?.let { this.movies!!.addAll(it) }
-        }
-
+        this.movies = movies as MutableList<Movie>?
         refreshFavMap(movies)
         notifyDataSetChanged()
     }
@@ -61,6 +56,7 @@ class MoviesAdapter(private var movies: MutableList<Movie>? = null,
         private val voteAverage by lazy { view.findViewById<TextView>(R.id.voteAverage) }
         private val favAction by lazy { view.findViewById<CheckBox>(R.id.favoriteButton) }
         private val image by lazy { view.findViewById<ImageView>(R.id.movieImageView) }
+        private val adultImage by lazy { view.findViewById<ImageView>(R.id.adultImageStatus) }
 
         fun bind(movie: Movie) {
 
@@ -76,6 +72,13 @@ class MoviesAdapter(private var movies: MutableList<Movie>? = null,
             year.text = movie.releaseDate?.formatToString("yyyy")
             voteAverage.text = "${movie.voteAverage}"
             favAction.isChecked = favItems[movie.id]!!
+
+            if (movie.adult!!) {
+                adultImage.setImageResource(R.drawable.ic_clapperboard_adult)
+            } else {
+                adultImage.setImageResource(R.drawable.ic_clapperboard)
+            }
+
 
             favAction.setOnClickListener { v ->
                 val checked = (v as CheckBox).isChecked
