@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blackTransparency">#A6000000</color>
+    <color name="black">#000000</color>
+    <color name="yellowTransparency">#A6EFB52B</color>
+    <color name="yellow">#EFB52B</color>
+
+    <color name="red">#CF2027</color>
+
     <color name="colorBlueGray200">#B0BEC5</color>
-    <color name="gray">#606060</color>
+    <color name="gray">#242121</color>
     <color name="black_alpha19">#30000000</color>
     <color name="whiteTransparency">#4DFFFFFF</color>
 </resources>

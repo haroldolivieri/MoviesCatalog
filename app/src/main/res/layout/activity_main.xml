@@ -59,6 +59,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:textColor="@color/yellow"
                         android:id="@+id/selectAllGenres"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         fontPath="@string/bariol_bold"

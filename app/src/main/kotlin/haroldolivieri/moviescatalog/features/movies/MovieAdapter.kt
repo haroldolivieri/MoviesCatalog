@@ -3,6 +3,7 @@ package haroldolivieri.moviescatalog.features.movies
 import android.app.Activity
 import android.content.Context
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -68,24 +69,14 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
         val favoriteContainer by lazy { view.findViewById<View>(R.id.favoriteContainer) }
 
         fun bind(movie: Movie) {
+            populateMovieData(movie)
 
-            val options = RequestOptions()
-                    .priority(Priority.HIGH)
-
-            Glide.with(context)
-                    .load(movie.backDropPath)
-                    .apply(options)
-                    .into(image)
-
-            title.text = movie.title
-            year.text = movie.releaseDate?.formatToString("yyyy")
-            voteAverage.text = "${movie.voteAverage}"
-            favAction.isChecked = favItems[movie.id]!!
-
-            if (movie.adult!!) {
-                adultImage.setImageResource(R.drawable.ic_clapperboard_adult)
+            if (layoutPosition%2 == 1) {
+                favoriteContainer.setBackgroundColor(context.getColor(R.color.black))
+                voteContainer.setBackgroundColor(context.getColor(R.color.blackTransparency))
             } else {
-                adultImage.setImageResource(R.drawable.ic_clapperboard)
+                favoriteContainer.setBackgroundColor(context.getColor(R.color.yellow))
+                voteContainer.setBackgroundColor(context.getColor(R.color.yellowTransparency))
             }
 
             favAction.setOnClickListener { v ->
@@ -95,21 +86,45 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
             }
 
             itemView.setOnClickListener {
-                val p1 = android.support.v4.util.Pair(title as View,
-                        context.getString(R.string.title_transition))
-                val p2 = android.support.v4.util.Pair(year as View,
-                        context.getString(R.string.year_transition))
-                val p3 = android.support.v4.util.Pair(voteContainer as View,
-                        context.getString(R.string.vote_transition))
-                val p4 = android.support.v4.util.Pair(favAction as View,
-                        context.getString(R.string.favorite_transition))
-                val p5 = android.support.v4.util.Pair(favoriteContainer as View,
-                        context.getString(R.string.fav_container_transition))
-                val options = ActivityOptionsCompat
-                        .makeSceneTransitionAnimation(context as Activity?, p1, p2, p3, p4, p5)
-
-                itemClick(movie, options)
+                itemClick(movie, animationTransitionSetup())
             }
+        }
+
+        private fun populateMovieData(movie: Movie) {
+            val options = RequestOptions()
+                    .priority(Priority.HIGH)
+
+            Glide.with(context)
+                    .load(movie.backDropPath)
+                    .apply(options)
+                    .into(image)
+
+            title.text = "#${layoutPosition+1}  ${movie.title}"
+            year.text = movie.releaseDate?.formatToString("yyyy")
+            voteAverage.text = "${movie.voteAverage}"
+            favAction.isChecked = favItems[movie.id]!!
+
+            if (movie.adult!!) {
+                adultImage.setImageResource(R.drawable.ic_clapperboard_adult)
+            } else {
+                adultImage.setImageResource(R.drawable.ic_clapperboard)
+            }
+        }
+
+        private fun animationTransitionSetup(): ActivityOptionsCompat {
+            val p1 = Pair(title as View,
+                    context.getString(R.string.title_transition))
+            val p2 = Pair(year as View,
+                    context.getString(R.string.year_transition))
+            val p3 = Pair(voteContainer as View,
+                    context.getString(R.string.vote_transition))
+            val p4 = Pair(favAction as View,
+                    context.getString(R.string.favorite_transition))
+            val p5 = Pair(favoriteContainer as View,
+                    context.getString(R.string.fav_container_transition))
+            val options = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(context as Activity?, p1, p2, p3, p4, p5)
+            return options
         }
     }
 }

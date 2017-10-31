@@ -12,6 +12,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import haroldolivieri.moviescatalog.R
 import haroldolivieri.moviescatalog.custom.EndlessRecyclerViewScrollListener
 import haroldolivieri.moviescatalog.domain.Movie
@@ -59,7 +60,10 @@ open class MoviesActivity(override val layout: Int = R.layout.activity_main) : B
 
     val genreAdapter by lazy {
         GenreAdapter(context = this@MoviesActivity,
-                itemClick = { genres -> mainPresenter.performMovieFilter(filterGenres = genres) })
+                itemClick = { genres ->
+                    selectAllGenres.visibility = View.VISIBLE
+                    mainPresenter.performMovieFilter(filterGenres = genres)
+                })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,6 +138,7 @@ open class MoviesActivity(override val layout: Int = R.layout.activity_main) : B
     }
 
     private fun onFilterCleared() {
+        selectAllGenres.visibility = View.INVISIBLE
         val selectedGenres = genreAdapter.getAllGenres()
         selectedGenres.map { selectedGenres.put(it.key, true) }
         genreAdapter.setSelectedGenres(selectedGenres)

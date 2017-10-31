@@ -103,9 +103,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             android:button="@drawable/selector_favorite_check_box"
-            android:buttonTint="@android:color/white"
             android:gravity="center"
-            android:tint="@android:color/white"
             android:transitionName="@string/favorite_transition"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/movieTitle"
@@ -169,6 +167,7 @@
     <TextView
         android:id="@+id/movieOverView"
         android:layout_width="0dp"
+        android:textSize="16sp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
