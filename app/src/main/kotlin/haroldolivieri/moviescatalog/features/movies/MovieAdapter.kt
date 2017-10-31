@@ -41,7 +41,13 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
     }
 
     private fun refreshFavMap(newItems: List<Movie>?) {
-        newItems?.map { it.id?.let { it1 -> it.favored?.let { it2 -> favItems.put(it1, it2) } } }
+        newItems?.map {
+            it.id?.let { it1 ->
+                it.favored?.let { it2 ->
+                    favItems.put(it1, it2)
+                }
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
@@ -82,9 +88,9 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
                 adultImage.setImageResource(R.drawable.ic_clapperboard)
             }
 
-
             favAction.setOnClickListener { v ->
                 val checked = (v as CheckBox).isChecked
+                movie.id?.let { favItems.put(it, checked) }
                 favClick(checked, movie)
             }
 

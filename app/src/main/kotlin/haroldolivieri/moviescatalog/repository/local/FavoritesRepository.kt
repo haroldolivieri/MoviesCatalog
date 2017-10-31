@@ -17,19 +17,17 @@ interface FavoritesRepository {
     fun unfavorite(id: Int)
     fun fetch(): Observable<Movie>
     fun deleteAll()
-    fun getFavoredItemObservable(): PublishSubject<FavoredEvent>
 }
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
+class FavoritesRepositoryLocal(configuration: RealmConfiguration,
+                               val favoredSubject: PublishSubject<FavoredEvent>) :
         AbstractRealmRepository(configuration), FavoritesRepository {
 
     companion object {
         private val CLAZZ_MOVIE = MovieRealmObject::class.java
         private val CLAZZ_GENRE = GenreRealmObject::class.java
     }
-
-    private val favoredSubject: PublishSubject<FavoredEvent> = PublishSubject.create()
 
     override fun fetch(): Observable<Movie> {
         realm().use {
@@ -81,8 +79,6 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
                     realm.delete(CLAZZ_GENRE)
                 }
             }
-
-    override fun getFavoredItemObservable(): PublishSubject<FavoredEvent> = favoredSubject
 }
 
 data class FavoredEvent(val favored: Boolean, val movieId: Int)

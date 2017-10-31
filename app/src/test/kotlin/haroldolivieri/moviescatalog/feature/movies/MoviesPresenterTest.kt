@@ -10,6 +10,7 @@ import haroldolivieri.moviescatalog.features.movies.MoviesPresenter
 import haroldolivieri.moviescatalog.features.movies.MoviesPresenterImpl
 import haroldolivieri.moviescatalog.features.movies.MoviesView
 import haroldolivieri.moviescatalog.repository.remote.entities.Genre
+import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
@@ -29,8 +30,11 @@ class MoviesPresenterTest {
         genresFaked.map { it.id?.let { it1 -> filterGenres.put(it1, true) } }
         `when`(movieViewMock.getGenresToFilter()).thenReturn(filterGenres)
 
-        presenter = MoviesPresenterImpl(movieViewMock, moviesRepositoryMock,
-                favoriteRepositoryMock, TestSchedulerProvider())
+        presenter = MoviesPresenterImpl(movieViewMock,
+                moviesRepositoryMock,
+                Observable.empty(),
+                favoriteRepositoryMock,
+                TestSchedulerProvider())
     }
 
     @Test

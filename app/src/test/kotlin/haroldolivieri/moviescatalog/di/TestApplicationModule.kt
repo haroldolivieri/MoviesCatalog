@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import haroldolivieri.moviescatalog.TestFaker.Companion.fakerSubject
 import haroldolivieri.moviescatalog.TestFaker.Companion.favoredMovies
 import haroldolivieri.moviescatalog.TestFaker.Companion.moviePage1MatchedFaked
 import haroldolivieri.moviescatalog.TestSchedulerProvider
@@ -11,7 +12,6 @@ import haroldolivieri.moviescatalog.di.qualifier.TestScheduler
 import haroldolivieri.moviescatalog.repository.local.FavoredEvent
 import haroldolivieri.moviescatalog.repository.local.FavoritesRepository
 import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 import org.mockito.Mockito.*
 import javax.inject.Singleton
 
@@ -33,11 +33,12 @@ class TestApplicationModule {
         doNothing().`when`(favoriteRepositoryMock)
                 .unfavorite(moviePage1MatchedFaked[0].id!!)
 
-        `when`(favoriteRepositoryMock.getFavoredItemObservable())
-                .thenReturn(PublishSubject.create())
-
         return favoriteRepositoryMock
     }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteObservable(): Observable<FavoredEvent> = fakerSubject
 
     @Provides
     @TestScheduler

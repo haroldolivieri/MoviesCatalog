@@ -11,6 +11,7 @@ import haroldolivieri.moviescatalog.features.movies.MoviesActivity
 import haroldolivieri.moviescatalog.features.movies.MoviesPresenter
 import haroldolivieri.moviescatalog.features.movies.MoviesPresenterImpl
 import haroldolivieri.moviescatalog.features.movies.MoviesView
+import haroldolivieri.moviescatalog.repository.local.FavoredEvent
 import haroldolivieri.moviescatalog.repository.local.FavoritesRepository
 import haroldolivieri.moviescatalog.repository.remote.MoviesAPI
 import haroldolivieri.moviescatalog.repository.remote.MoviesRepository
@@ -28,8 +29,10 @@ class TestMoviesModule {
     fun providePresenter(mainView: MoviesView,
                          moviesRepository: MoviesRepository,
                          favoritesRepository: FavoritesRepository,
-                         @TestScheduler schedulerProvider: SchedulerProvider): MoviesPresenter =
-            MoviesPresenterImpl(mainView, moviesRepository, favoritesRepository, schedulerProvider)
+                         @TestScheduler schedulerProvider: SchedulerProvider,
+                         favoriteObservable: Observable<FavoredEvent>): MoviesPresenter =
+            MoviesPresenterImpl(mainView, moviesRepository, favoriteObservable,
+                    favoritesRepository, schedulerProvider)
 
     @Provides
     fun provideMovieRepository(): MoviesRepository {

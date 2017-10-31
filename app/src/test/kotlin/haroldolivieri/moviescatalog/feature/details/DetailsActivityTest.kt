@@ -7,6 +7,7 @@ import android.widget.TextView
 import haroldolivieri.TestMoviesCatalogApplication
 import haroldolivieri.moviescatalog.BuildConfig
 import haroldolivieri.moviescatalog.R
+import haroldolivieri.moviescatalog.TestFaker.Companion.fakerSubject
 import haroldolivieri.moviescatalog.TestFaker.Companion.moviePage1MatchedFaked
 import haroldolivieri.moviescatalog.domain.Movie
 import haroldolivieri.moviescatalog.features.details.DetailsActivity
@@ -25,6 +26,9 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowApplication
+import com.bumptech.glide.Glide.tearDown
+import org.junit.After
+
 
 @RunWith(RobolectricTestRunner::class)
 @Config(constants = BuildConfig::class, application = TestMoviesCatalogApplication::class)
@@ -61,26 +65,7 @@ class DetailsActivityTest {
     @Test
     fun favoriteInDetailsActivityShouldChangeMovieActivityItemList() {
         val movie = moviePage1MatchedFaked[0]
-        startDetailsActivityWithExtras(movie)
-
-        val favCheckBox = detailsActivity.findViewById<CheckBox>(R.id.favoriteButton)
-        assertTrue(favCheckBox.isChecked == movie.favored)
-
-        favCheckBox.performClick()
-        detailsActivity.detailsPresenter
-                .favoritesRepository()
-                .getFavoredItemObservable()
-                .onNext(FavoredEvent(!movie.favored!!, movie.id!!))
-        assertTrue(favCheckBox.isChecked == !movie.favored!!)
-
-        detailsActivity.onBackPressed()
-
-        val moviesRecyclerView = moviesActivity.findViewById<RecyclerView>(R.id.moviesRecyclerView)
-        moviesRecyclerView.scrollToPosition(0)
-        val moviesViewHolder = moviesRecyclerView.findViewHolderForAdapterPosition(0)
-                as MovieAdapter.MoviesViewHolder
-
-        assertTrue(moviesViewHolder.favAction.isChecked == favCheckBox.isChecked)
+        checkFavoriteBehavior(movie)
     }
 
     @Test
@@ -100,6 +85,27 @@ class DetailsActivityTest {
         return Triple(movieYear, movieOverView, movieVoteAverage)
     }
 
+    private fun checkFavoriteBehavior(movie: Movie) {
+        startDetailsActivityWithExtras(movie)
+
+        val favCheckBox = detailsActivity.findViewById<CheckBox>(R.id.favoriteButton)
+        assertTrue(favCheckBox.isChecked == movie.favored)
+
+        favCheckBox.performClick()
+        fakerSubject.onNext(FavoredEvent(!movie.favored!!, movie.id!!))
+        assertTrue(favCheckBox.isChecked == !movie.favored!!)
+
+        detailsActivity.onBackPressed()
+
+        val moviesRecyclerView = moviesActivity.findViewById<RecyclerView>(R.id.moviesRecyclerView)
+        moviesRecyclerView.scrollToPosition(0)
+        val moviesViewHolder = moviesRecyclerView.findViewHolderForAdapterPosition(0)
+                as MovieAdapter.MoviesViewHolder
+
+        assertTrue(moviesViewHolder.favAction.isChecked == favCheckBox.isChecked)
+    }
+
+
     private fun startDetailsActivityWithExtras(movie: Movie) {
         moviesActivity.startActivity(moviesActivity.DetailsIntent(movie))
 
@@ -114,5 +120,10 @@ class DetailsActivityTest {
                 .get()
 
         assertNotNull(detailsActivity)
+    }
+
+    @After
+    fun tearDown() {
+        Robolectric.reset()
     }
 }

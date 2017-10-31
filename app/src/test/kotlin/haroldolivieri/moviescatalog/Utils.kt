@@ -2,9 +2,11 @@ package haroldolivieri.moviescatalog
 
 import haroldolivieri.moviescatalog.domain.Movie
 import haroldolivieri.moviescatalog.features.movies.MoviesView
+import haroldolivieri.moviescatalog.repository.local.FavoredEvent
 import haroldolivieri.moviescatalog.repository.local.FavoritesRepository
 import haroldolivieri.moviescatalog.repository.remote.entities.Genre
 import haroldolivieri.moviescatalog.repository.remote.entities.MovieRemote
+import io.reactivex.subjects.PublishSubject
 import org.mockito.Mockito.mock
 import org.powermock.api.support.membermodification.MemberModifier
 import java.util.*
@@ -18,6 +20,9 @@ fun callPrivateMethod(instance: Any, methodName: String, parameter: Array<Any?>)
 
 class TestFaker {
     companion object {
+
+        val fakerSubject = PublishSubject.create<FavoredEvent>()
+
         val favoredMovies = listOf(Movie(1, true, 0.0, "", 1.0, "", false,
                 listOf(Genre(1, "Thriller"), Genre(2, "Action")), Date(), ""))
 

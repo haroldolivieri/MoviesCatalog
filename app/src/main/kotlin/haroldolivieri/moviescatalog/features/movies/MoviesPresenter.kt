@@ -4,6 +4,7 @@ import android.util.Log
 import haroldolivieri.moviescatalog.di.SchedulerProvider
 import haroldolivieri.moviescatalog.di.qualifier.RealScheduler
 import haroldolivieri.moviescatalog.domain.Movie
+import haroldolivieri.moviescatalog.repository.local.FavoredEvent
 import haroldolivieri.moviescatalog.repository.local.FavoritesRepository
 import haroldolivieri.moviescatalog.repository.remote.MoviesRepository
 import haroldolivieri.moviescatalog.repository.remote.entities.Genre
@@ -12,6 +13,7 @@ import haroldolivieri.moviescatalog.repository.remote.entities.toMovie
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
+import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 interface MoviesPresenter {
@@ -26,6 +28,7 @@ interface MoviesPresenter {
 open class MoviesPresenterImpl
 @Inject constructor(private val moviesView: MoviesView,
                     private val moviesRepository: MoviesRepository,
+                    private val favoredObservable: Observable<FavoredEvent>,
                     private val favoritesRepository: FavoritesRepository,
                     @RealScheduler private val schedulerProvider: SchedulerProvider) : MoviesPresenter {
 
@@ -34,8 +37,7 @@ open class MoviesPresenterImpl
     private var disposable: Disposable? = null
 
     override fun onCreate() {
-        disposable = favoritesRepository
-                .getFavoredItemObservable()
+        disposable = favoredObservable
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe {

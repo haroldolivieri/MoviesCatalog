@@ -6,6 +6,7 @@ import haroldolivieri.moviescatalog.domain.Movie
 import haroldolivieri.moviescatalog.repository.local.FavoritesRepository
 import haroldolivieri.moviescatalog.repository.local.FavoritesRepositoryLocal
 import haroldolivieri.moviescatalog.repository.remote.entities.Genre
+import io.reactivex.subjects.PublishSubject
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import junit.framework.Assert
@@ -30,7 +31,7 @@ class FavoriteRepositoryRealmTest {
 
     @Before
     fun setUp() {
-        favoriteRepository = FavoritesRepositoryLocal(realmConfiguration)
+        favoriteRepository = FavoritesRepositoryLocal(realmConfiguration, PublishSubject.create())
         favoriteRepository.deleteAll()
     }
 
