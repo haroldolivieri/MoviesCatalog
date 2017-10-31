@@ -4,11 +4,10 @@ import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import haroldolivieri.moviescatalog.TestFaker.Companion.favoredMovies
+import haroldolivieri.moviescatalog.TestFaker.Companion.moviePage1MatchedFaked
 import haroldolivieri.moviescatalog.TestSchedulerProvider
 import haroldolivieri.moviescatalog.di.qualifier.TestScheduler
-import haroldolivieri.moviescatalog.favoredMovies
-import haroldolivieri.moviescatalog.favoriteRepositoryMock
-import haroldolivieri.moviescatalog.moviePage1Matched
 import haroldolivieri.moviescatalog.repository.local.FavoredEvent
 import haroldolivieri.moviescatalog.repository.local.FavoritesRepository
 import io.reactivex.Observable
@@ -24,11 +23,17 @@ class TestApplicationModule {
     @Provides
     @Singleton
     fun provideFavoriteRepository(): FavoritesRepository {
-        `when`(favoriteRepositoryMock.fetch()).thenReturn(Observable.fromIterable(favoredMovies))
-        `when`(favoriteRepositoryMock.favorite(moviePage1Matched[0])).thenReturn(Observable.just(moviePage1Matched[0]))
-        doNothing().`when`(favoriteRepositoryMock).unfavorite(moviePage1Matched[0].id!!)
+        val favoriteRepositoryMock: FavoritesRepository = mock(FavoritesRepository::class.java)
 
-        `when`(favoriteRepositoryMock.getFavoredItemObservable()).thenReturn(Observable.just(FavoredEvent(false, 1)))
+        `when`(favoriteRepositoryMock.fetch())
+                .thenReturn(Observable.fromIterable(favoredMovies))
+        `when`(favoriteRepositoryMock.favorite(moviePage1MatchedFaked[0]))
+                .thenReturn(Observable.just(moviePage1MatchedFaked[0]))
+        doNothing().`when`(favoriteRepositoryMock)
+                .unfavorite(moviePage1MatchedFaked[0].id!!)
+
+        `when`(favoriteRepositoryMock.getFavoredItemObservable())
+                .thenReturn(Observable.just(FavoredEvent(false, 1)))
         return favoriteRepositoryMock
     }
 

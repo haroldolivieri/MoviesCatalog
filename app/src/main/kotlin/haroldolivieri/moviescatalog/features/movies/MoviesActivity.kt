@@ -1,6 +1,7 @@
 package haroldolivieri.moviescatalog.features.movies
 
 import android.os.Bundle
+import android.support.annotation.VisibleForTesting
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
@@ -33,7 +34,7 @@ interface MoviesView {
     fun getGenresToFilter(): HashMap<Int, Boolean>
 }
 
-class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseActivity(),
+open class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseActivity(),
         MoviesView, NavigationView.OnNavigationItemSelectedListener {
 
     @Inject lateinit var mainPresenter: MoviesPresenter
@@ -82,7 +83,7 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
     }
 
     override fun onDisconnected() {
-        showSnackBar(recyclerView,
+        showSnackBar(moviesRecyclerView,
                 "You are disconnected. Please check out your internet",
                 Snackbar.LENGTH_INDEFINITE)
     }
@@ -108,7 +109,7 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
     override fun getGenresToFilter(): HashMap<Int, Boolean> = genreAdapter.getSelectedGenres()
 
     override fun showMessage(message: String) {
-        showSnackBar(recyclerView, message)
+        showSnackBar(moviesRecyclerView, message)
     }
 
     override fun showMovies(movies: List<Movie>?) {
@@ -138,10 +139,10 @@ class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseAc
     }
 
     private fun setupRecyclersView() {
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = movieAdapter
-        recyclerView.setEmptyView(emptyView)
-        recyclerView.addOnScrollListener(endLessScrollListener)
+        moviesRecyclerView.layoutManager = layoutManager
+        moviesRecyclerView.adapter = movieAdapter
+        moviesRecyclerView.setEmptyView(emptyView)
+        moviesRecyclerView.addOnScrollListener(endLessScrollListener)
 
         genreRecyclerView.layoutManager = StaggeredGridLayoutManager(2, 1)
         genreRecyclerView.adapter = genreAdapter

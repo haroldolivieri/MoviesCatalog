@@ -6,9 +6,6 @@ import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import haroldolivieri.TestMoviesCatalogApplication
-import haroldolivieri.moviescatalog.feature.details.TestDetailsModule
-import haroldolivieri.moviescatalog.feature.movies.MoviePresenterTest
-import haroldolivieri.moviescatalog.feature.movies.TestMoviesModule
 import javax.inject.Singleton
 
 
@@ -16,8 +13,7 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(
         AndroidSupportInjectionModule::class,
         TestApplicationModule::class,
-        TestMoviesModule::class,
-        TestDetailsModule::class))
+        TestActivityBuilderModule::class))
 interface TestApplicationComponent : AndroidInjector<TestMoviesCatalogApplication> {
 
     @Component.Builder
@@ -26,6 +22,4 @@ interface TestApplicationComponent : AndroidInjector<TestMoviesCatalogApplicatio
         fun application(application: Application): Builder
         fun build(): TestApplicationComponent
     }
-
-    fun inject(moviePresenterTest: MoviePresenterTest)
 }

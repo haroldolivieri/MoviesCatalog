@@ -47,7 +47,7 @@ class GenreAdapter(private var genres: List<Genre>? = null,
 
     inner class GenreViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val categoryCheckBox by lazy { view.findViewById<CheckBox>(R.id.category) }
+        val categoryCheckBox by lazy { view.findViewById<CheckBox>(R.id.category) }
 
         fun bind(genre: Genre) {
             categoryCheckBox.text = genre.name

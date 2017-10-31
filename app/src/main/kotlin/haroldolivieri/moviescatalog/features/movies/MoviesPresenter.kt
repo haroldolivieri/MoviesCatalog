@@ -1,5 +1,6 @@
 package haroldolivieri.moviescatalog.features.movies
 
+import android.support.annotation.VisibleForTesting
 import android.util.Log
 import haroldolivieri.moviescatalog.di.SchedulerProvider
 import haroldolivieri.moviescatalog.di.qualifier.RealScheduler
@@ -20,14 +21,17 @@ interface MoviesPresenter {
     fun performMovieFilter(filterGenres: HashMap<Int, Boolean>)
     fun onCreate()
     fun onDestroy()
+    @VisibleForTesting fun getView() : MoviesView
     fun onConnected()
 }
 
 open class MoviesPresenterImpl
-@Inject constructor(private val mainView: MoviesView,
+@Inject constructor(private val moviesView: MoviesView,
                     private val moviesRepository: MoviesRepository,
                     private val favoritesRepository: FavoritesRepository,
                     @RealScheduler private val schedulerProvider: SchedulerProvider) : MoviesPresenter {
+
+    override fun getView(): MoviesView = moviesView
 
     private var movies: MutableList<Movie>? = null
     private var genres: List<Genre>? = null
@@ -41,10 +45,10 @@ open class MoviesPresenterImpl
                 .subscribe {
                     val position = movies?.indexOfFirst { movie -> movie.id == it.movieId }
                     movies?.get(position!!)?.favored = it.favored
-                    performMovieFilter(mainView.getGenresToFilter())
+                    performMovieFilter(moviesView.getGenresToFilter())
                 }
 
-        mainView.showLoading()
+        moviesView.showLoading()
         fetchPopularMoviesData()
     }
 
@@ -56,7 +60,7 @@ open class MoviesPresenterImpl
 
     override fun onConnected() {
         if (movies == null || movies?.size == 0) {
-            mainView.showLoading()
+            moviesView.showLoading()
             fetchPopularMoviesData(1)
         }
     }
@@ -91,9 +95,9 @@ open class MoviesPresenterImpl
                 }).subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({
-                    mainView.showGenres(this@MoviesPresenterImpl.genres)
-                    performMovieFilter(mainView.getGenresToFilter())
-                }, { mainView.showError(it) }, { mainView.hideLoading() })
+                    moviesView.showGenres(this@MoviesPresenterImpl.genres)
+                    performMovieFilter(moviesView.getGenresToFilter())
+                }, { moviesView.showError(it) }, { moviesView.hideLoading() })
     }
 
     override fun performMovieFilter(filterGenres: HashMap<Int, Boolean>) {
@@ -105,7 +109,7 @@ open class MoviesPresenterImpl
             return@filter temp?.size!! > 0
         }
 
-        mainView.showMovies(result)
+        moviesView.showMovies(result)
     }
 
     private fun reindexMovies(tempMovies: List<Movie>) {

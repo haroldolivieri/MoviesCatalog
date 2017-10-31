@@ -52,14 +52,14 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
 
     inner class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val title by lazy { view.findViewById<TextView>(R.id.movieTitle) }
-        private val year by lazy { view.findViewById<TextView>(R.id.movieReleaseYear) }
-        private val voteAverage by lazy { view.findViewById<TextView>(R.id.voteAverage) }
-        private val favAction by lazy { view.findViewById<CheckBox>(R.id.favoriteButton) }
-        private val image by lazy { view.findViewById<ImageView>(R.id.movieImageView) }
-        private val adultImage by lazy { view.findViewById<ImageView>(R.id.adultImageStatus) }
-        private val voteContainer by lazy { view.findViewById<View>(R.id.voteContainer) }
-        private val favoriteContainer by lazy { view.findViewById<View>(R.id.favoriteContainer) }
+        val title by lazy { view.findViewById<TextView>(R.id.movieTitle) }
+        val year by lazy { view.findViewById<TextView>(R.id.movieReleaseYear) }
+        val voteAverage by lazy { view.findViewById<TextView>(R.id.voteAverage) }
+        val favAction by lazy { view.findViewById<CheckBox>(R.id.favoriteButton) }
+        val image by lazy { view.findViewById<ImageView>(R.id.movieImageView) }
+        val adultImage by lazy { view.findViewById<ImageView>(R.id.adultImageStatus) }
+        val voteContainer by lazy { view.findViewById<View>(R.id.voteContainer) }
+        val favoriteContainer by lazy { view.findViewById<View>(R.id.favoriteContainer) }
 
         fun bind(movie: Movie) {
 

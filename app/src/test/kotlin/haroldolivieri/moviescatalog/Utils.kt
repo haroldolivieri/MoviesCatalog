@@ -16,24 +16,39 @@ fun callPrivateMethod(instance: Any, methodName: String, parameter: Array<Any?>)
     return method.invoke(instance, *parameter)
 }
 
-val movieViewMock: MoviesView = mock(MoviesView::class.java)
-val favoriteRepositoryMock: FavoritesRepository = mock(FavoritesRepository::class.java)
+class TestFaker {
+    companion object {
+        val favoredMovies = listOf(Movie(1, true, 0.0, "", 1.0, "", false,
+                listOf(Genre(1, "Thriller"), Genre(2, "Action")), Date(), ""))
 
-val favoredMovies = listOf(Movie(1, true, 0.0, "", 1.0, "", false,
-        listOf(Genre(1, "Thriller"), Genre(2, "Action")), Date(), ""))
+        val genresFaked = listOf(Genre(1, "Thriller"), Genre(2, "Action"), Genre(3, "Drama"))
 
-val genres = listOf(Genre(1, "Thriller"), Genre(2, "Action"), Genre(3, "Drama"))
+        val fakerDate = Date()
 
-val date = Date()
-val moviePage1 = listOf(
-        MovieRemote(1, 0.0, "title1", 1.0, "", false, listOf(1, 2), date, ""),
-        MovieRemote(2, 0.0, "title2", 1.0, "", false, listOf(2, 3), date, ""),
-        MovieRemote(3, 0.0, "title3", 1.0, "", false, listOf(1, 3), date, ""))
+        val moviePage1Faked = listOf(
+                MovieRemote(1, 0.0, "title1", 1.0, "", false, listOf(1, 2), fakerDate, ""),
+                MovieRemote(2, 0.0, "title2", 1.0, "", false, listOf(2, 3), fakerDate, ""),
+                MovieRemote(3, 0.0, "title3", 1.0, "", false, listOf(1, 3), fakerDate, ""))
 
-val moviePage1Matched = listOf(
-        Movie(1, true, 0.0, "title1", 1.0, "http://image.tmdb.org/t/p/w500", false,
-                listOf(Genre(1, "Thriller"), Genre(2, "Action")), date, ""),
-        Movie(2, false, 0.0, "title2", 1.0, "http://image.tmdb.org/t/p/w500", false,
-                listOf(Genre(2, "Action"), Genre(3, "Drama")), date, ""),
-        Movie(3, false, 0.0, "title3", 1.0, "http://image.tmdb.org/t/p/w500", false,
-                listOf(Genre(1, "Thriller"), Genre(3, "Drama")), date, ""))
+        val moviePage2Faked = listOf(
+                MovieRemote(4, 0.0, "title4", 1.0, "", false, listOf(1, 2), fakerDate, ""),
+                MovieRemote(5, 0.0, "title5", 1.0, "", false, listOf(2, 3), fakerDate, ""),
+                MovieRemote(6, 0.0, "title6", 1.0, "", false, listOf(1, 3), fakerDate, ""))
+
+        val moviePage1MatchedFaked = listOf(
+                Movie(1, true, 0.0, "title1", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                        listOf(Genre(1, "Thriller"), Genre(2, "Action")), fakerDate, ""),
+                Movie(2, false, 0.0, "title2", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                        listOf(Genre(2, "Action"), Genre(3, "Drama")), fakerDate, ""),
+                Movie(3, false, 0.0, "title3", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                        listOf(Genre(1, "Thriller"), Genre(3, "Drama")), fakerDate, ""))
+
+        val moviePage2MatchedFaked = listOf(
+                Movie(4, true, 0.0, "title4", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                        listOf(Genre(1, "Thriller"), Genre(2, "Action")), fakerDate, ""),
+                Movie(5, false, 0.0, "title5", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                        listOf(Genre(2, "Action"), Genre(3, "Drama")), fakerDate, ""),
+                Movie(6, false, 0.0, "title6", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                        listOf(Genre(1, "Thriller"), Genre(3, "Drama")), fakerDate, ""))
+    }
+}
