@@ -31,11 +31,13 @@ android {
         release {
             minifyEnabled false
             testCoverageEnabled = false
+            multiDexKeepProguard file('proguard-rules.pro')
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         debug {
             testCoverageEnabled = false
+            multiDexKeepProguard file('proguard-rules.pro')
         }
     }
 
@@ -54,8 +56,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.github.pwittchen:reactivenetwork-rx2:0.12.1'
 
     compile baseDependencies.kotlin_std_lib
 
@@ -66,6 +66,7 @@ dependencies {
 
     compile baseDependencies.rx_java
     compile baseDependencies.rx_android
+    compile baseDependencies.rx_network
 
     compile baseDependencies.retrofit2
     compile baseDependencies.retrofit_rx_adapter
@@ -78,6 +79,7 @@ dependencies {
     compile baseDependencies.card_view
     compile baseDependencies.constraint_layout
     compile baseDependencies.support_design
+    compile baseDependencies.constraint_layout
     compile baseDependencies.support_annotations
 
     compile baseDependencies.calligraphy
@@ -87,11 +89,10 @@ dependencies {
     testCompile testDependencies.mockito
     testCompile testDependencies.hamcrest
     testCompile testDependencies.roboletric
+    testCompile(testDependencies.powermock_junit)
     testCompile(testDependencies.powermock_mockito) {
         exclude group: 'org.objenesis'
     }
-    testCompile(testDependencies.powermock_junit)
-
     testCompile baseDependencies.dagger2
     testCompile(baseDependencies.dagger2_android_support, {
         exclude group: 'com.android.support'
@@ -100,10 +101,10 @@ dependencies {
     kaptTest baseDependencies.dagger2_android_processor
 
     androidTestCompile testDependencies.junit
+    androidTestCompile testDependencies.mockito
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    androidTestCompile testDependencies.mockito
 }
 
 junitJacoco {

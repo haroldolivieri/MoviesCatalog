@@ -134,7 +134,7 @@ open class MoviesActivity(override val layout: Int = R.layout.activity_main) : B
 
     private fun onFilterCleared() {
         val selectedGenres = genreAdapter.getAllGenres()
-        selectedGenres.forEach { i, _ -> selectedGenres.put(i, true) }
+        selectedGenres.map { selectedGenres.put(it.key, true) }
         genreAdapter.setSelectedGenres(selectedGenres)
         genreAdapter.notifyDataSetChanged()
 
