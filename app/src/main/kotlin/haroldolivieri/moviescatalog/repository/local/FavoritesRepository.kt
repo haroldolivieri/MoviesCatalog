@@ -17,7 +17,7 @@ interface FavoritesRepository {
     fun unfavorite(id: Int)
     fun fetch(): Observable<Movie>
     fun deleteAll()
-    fun getFavoredItemObservable(): Observable<FavoredEvent>
+    fun getFavoredItemObservable(): PublishSubject<FavoredEvent>
 }
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -55,7 +55,7 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
                     it.copyToRealm(favorite)
                 }
             }
-        } catch (e : RealmPrimaryKeyConstraintException) {
+        } catch (e: RealmPrimaryKeyConstraintException) {
             return Observable.error(e)
         }
 
@@ -65,7 +65,7 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
 
     override fun unfavorite(id: Int) {
         realm().use {
-            val movie : MovieRealmObject? = it.where(CLAZZ_MOVIE).equalTo("id", id).findFirst()
+            val movie: MovieRealmObject? = it.where(CLAZZ_MOVIE).equalTo("id", id).findFirst()
             it.executeTransaction {
                 movie?.deleteFromRealm()
             }
@@ -82,7 +82,7 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
                 }
             }
 
-    override fun getFavoredItemObservable() : Observable<FavoredEvent> = favoredSubject
+    override fun getFavoredItemObservable(): PublishSubject<FavoredEvent> = favoredSubject
 }
 
 data class FavoredEvent(val favored: Boolean, val movieId: Int)

@@ -1,6 +1,5 @@
 package haroldolivieri.moviescatalog.features.movies
 
-import android.support.annotation.VisibleForTesting
 import android.util.Log
 import haroldolivieri.moviescatalog.di.SchedulerProvider
 import haroldolivieri.moviescatalog.di.qualifier.RealScheduler
@@ -21,7 +20,6 @@ interface MoviesPresenter {
     fun performMovieFilter(filterGenres: HashMap<Int, Boolean>)
     fun onCreate()
     fun onDestroy()
-    @VisibleForTesting fun getView() : MoviesView
     fun onConnected()
 }
 
@@ -30,8 +28,6 @@ open class MoviesPresenterImpl
                     private val moviesRepository: MoviesRepository,
                     private val favoritesRepository: FavoritesRepository,
                     @RealScheduler private val schedulerProvider: SchedulerProvider) : MoviesPresenter {
-
-    override fun getView(): MoviesView = moviesView
 
     private var movies: MutableList<Movie>? = null
     private var genres: List<Genre>? = null
@@ -43,8 +39,8 @@ open class MoviesPresenterImpl
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe {
-                    val position = movies?.indexOfFirst { movie -> movie.id == it.movieId }
-                    movies?.get(position!!)?.favored = it.favored
+                    val position = movies?.indexOfFirst { movie -> movie.id == it?.movieId }
+                    movies?.get(position!!)?.favored = it?.favored
                     performMovieFilter(moviesView.getGenresToFilter())
                 }
 

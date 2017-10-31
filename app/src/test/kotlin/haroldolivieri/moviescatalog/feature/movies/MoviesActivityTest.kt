@@ -21,6 +21,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 
+
 @RunWith(RobolectricTestRunner::class)
 @Config(constants = BuildConfig::class, application = TestMoviesCatalogApplication::class)
 class MoviesActivityTest {
@@ -52,24 +53,31 @@ class MoviesActivityTest {
     }
 
     @Test
-    fun assertAdapterMovieItem() {
+    fun assertAdapterMovieItemBehavior() {
         moviesRecyclerView.scrollToPosition(0)
         val moviesViewHolder = moviesRecyclerView.findViewHolderForAdapterPosition(0)
                 as MovieAdapter.MoviesViewHolder
 
-        assertTrue(moviesViewHolder.title.text == moviePage1MatchedFaked[0].title)
-        assertTrue(moviesViewHolder.favAction.isChecked == moviePage1MatchedFaked[0].favored)
+        val movie = moviePage1MatchedFaked[0]
+
+        assertTrue(moviesViewHolder.title.text == movie.title)
+        assertTrue(moviesViewHolder.favAction.isChecked == movie.favored)
+        moviesViewHolder.favAction.performClick()
+        assertTrue(moviesViewHolder.favAction.isChecked == !movie.favored!!)
     }
 
     @Test
-    fun assertAdapterGenreItem() {
+    fun assertAdapterGenreItemBehavior() {
         genresRecyclerView.scrollToPosition(0)
         val genresViewHolder = genresRecyclerView.findViewHolderForAdapterPosition(0)
                 as GenreAdapter.GenreViewHolder
 
-        assertTrue(genresViewHolder.categoryCheckBox.text == genresFaked[0].name)
         val isChecked = moviesActivity.getGenresToFilter().any { it.key == genresFaked[0].id }
+
+        assertTrue(genresViewHolder.categoryCheckBox.text == genresFaked[0].name)
         assertTrue(genresViewHolder.categoryCheckBox.isChecked == isChecked)
+        genresViewHolder.categoryCheckBox.performClick()
+        assertTrue(genresViewHolder.categoryCheckBox.isChecked == !isChecked)
     }
 
     @Test
@@ -81,4 +89,5 @@ class MoviesActivityTest {
         val shadowIntent = shadowOf(startedIntent)
         assertThat(shadowIntent.intentClass.name, equalTo(DetailsActivity::class.java.name))
     }
+
 }

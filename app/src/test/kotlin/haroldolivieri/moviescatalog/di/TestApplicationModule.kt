@@ -11,6 +11,7 @@ import haroldolivieri.moviescatalog.di.qualifier.TestScheduler
 import haroldolivieri.moviescatalog.repository.local.FavoredEvent
 import haroldolivieri.moviescatalog.repository.local.FavoritesRepository
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import org.mockito.Mockito.*
 import javax.inject.Singleton
 
@@ -33,7 +34,8 @@ class TestApplicationModule {
                 .unfavorite(moviePage1MatchedFaked[0].id!!)
 
         `when`(favoriteRepositoryMock.getFavoredItemObservable())
-                .thenReturn(Observable.just(FavoredEvent(false, 1)))
+                .thenReturn(PublishSubject.create())
+
         return favoriteRepositoryMock
     }
 

@@ -5,6 +5,7 @@ import dagger.Provides
 import haroldolivieri.moviescatalog.features.details.DetailsPresenter
 import haroldolivieri.moviescatalog.features.details.DetailsPresenterImpl
 import haroldolivieri.moviescatalog.features.details.DetailsView
+import haroldolivieri.moviescatalog.repository.local.FavoritesRepository
 import org.mockito.Mockito.mock
 
 @Module
@@ -13,5 +14,7 @@ class TestDetailsModule {
     fun provideView(): DetailsView = mock(DetailsView::class.java)
 
     @Provides
-    fun providePresenter(presenter: DetailsPresenterImpl): DetailsPresenter = presenter
+    fun providePresenter(detailsView : DetailsView,
+                         favoritesRepository: FavoritesRepository): DetailsPresenter =
+            DetailsPresenterImpl(detailsView, favoritesRepository)
 }

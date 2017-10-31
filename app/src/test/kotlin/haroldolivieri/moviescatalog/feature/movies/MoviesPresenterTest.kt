@@ -37,9 +37,9 @@ class MoviesPresenterTest {
     fun fetchDataWithSuccess() {
         presenter.fetchPopularMoviesData()
 
-        verify(movieViewMock, atLeastOnce()).showGenres(genresFaked)
-        verify(movieViewMock, atLeastOnce()).showMovies(moviePage1MatchedFaked)
-        verify(movieViewMock, atLeastOnce()).getGenresToFilter()
+        verify(movieViewMock, times(1)).showGenres(genresFaked)
+        verify(movieViewMock, times(1)).showMovies(moviePage1MatchedFaked)
+        verify(movieViewMock, times(1)).getGenresToFilter()
     }
 
     @Test
@@ -85,8 +85,8 @@ class MoviesPresenterTest {
 
         presenter.performMovieFilter(filterByThriller)
 
-        verify(movieViewMock, atLeastOnce()).showMovies(moviePage1MatchedFaked)
-        verify(movieViewMock, atLeastOnce()).showMovies(emptyList())
-        verify(movieViewMock, atLeastOnce()).showMovies(filteredByThrillerResult)
+        verify(movieViewMock, times(1)).showMovies(moviePage1MatchedFaked)
+        verify(movieViewMock, times(1)).showMovies(emptyList())
+        verify(movieViewMock, times(1)).showMovies(filteredByThrillerResult)
     }
 }

@@ -47,6 +47,35 @@ class DetailsActivity(override val layout: Int = R.layout.activity_movie_details
     override fun onConnected() {}
     override fun onDisconnected() {}
 
+    private fun populateInfo() {
+        movie.apply {
+            val options = RequestOptions()
+                    .priority(Priority.HIGH)
+                    .placeholder(R.drawable.no_image)
+
+            Glide.with(this@DetailsActivity)
+                    .load(movie.backDropPath)
+                    .apply(options)
+                    .into(movieImage)
+
+            movieTitle.text = title ?: "Not Informed"
+            movieYear.text = releaseDate?.formatToString("yyyy") ?: "Not Informed"
+            movieVoteAverage.text = "${voteAverage ?: '-'}"
+            favoriteButton.isChecked = favored ?: false
+            movieOverView.text = overview ?: "Not Informed"
+
+            if (adult == true) {
+                movieAdultImage.setImageDrawable(getDrawable(R.drawable.ic_clapperboard_adult))
+            } else {
+                movieAdultImage.setImageDrawable(getDrawable(R.drawable.ic_clapperboard))
+            }
+
+            var strGenres = ""
+            genres?.forEach { strGenres += "-${it.name} " }
+            movieGenres.text = "Genres: $strGenres"
+        }
+    }
+
     private fun setupShareAction() {
         val intent = Intent(android.content.Intent.ACTION_SEND)
         intent.type = "text/plain"
@@ -63,35 +92,6 @@ class DetailsActivity(override val layout: Int = R.layout.activity_movie_details
         favoriteButton.setOnClickListener { v ->
             val checked = (v as CheckBox).isChecked
             detailsPresenter.favoriteAction(checked, movie)
-        }
-    }
-
-    private fun populateInfo() {
-        movie.apply {
-            val options = RequestOptions()
-                    .priority(Priority.HIGH)
-                    .placeholder(R.drawable.no_image)
-
-            Glide.with(this@DetailsActivity)
-                    .load(movie.backDropPath)
-                    .apply(options)
-                    .into(movieImage)
-
-            movieTitle.text = title
-            movieYear.text = releaseDate?.formatToString("yyyy")
-            movieVoteAverage.text = "$voteAverage"
-            favoriteButton.isChecked = favored!!
-            movieOverView.text = overview
-
-            if (adult!!) {
-                movieAdultImage.setImageDrawable(getDrawable(R.drawable.ic_clapperboard_adult))
-            } else {
-                movieAdultImage.setImageDrawable(getDrawable(R.drawable.ic_clapperboard))
-            }
-
-            var strGenres = ""
-            genres?.forEach { strGenres += "-${it.name} " }
-            movieGenres.text = "Genres: $strGenres"
         }
     }
 }
