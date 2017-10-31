@@ -2,6 +2,7 @@ package haroldolivieri.moviescatalog.feature.details
 
 import dagger.Module
 import dagger.Provides
+import haroldolivieri.moviescatalog.TestFaker.Companion.fakerSubject
 import haroldolivieri.moviescatalog.features.details.DetailsPresenter
 import haroldolivieri.moviescatalog.features.details.DetailsPresenterImpl
 import haroldolivieri.moviescatalog.features.details.DetailsView
@@ -16,5 +17,5 @@ class TestDetailsModule {
     @Provides
     fun providePresenter(detailsView : DetailsView,
                          favoritesRepository: FavoritesRepository): DetailsPresenter =
-            DetailsPresenterImpl(detailsView, favoritesRepository)
+            DetailsPresenterImpl(detailsView, favoritesRepository, fakerSubject)
 }

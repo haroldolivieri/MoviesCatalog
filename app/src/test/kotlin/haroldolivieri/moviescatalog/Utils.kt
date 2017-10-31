@@ -21,7 +21,7 @@ fun callPrivateMethod(instance: Any, methodName: String, parameter: Array<Any?>)
 class TestFaker {
     companion object {
 
-        val fakerSubject = PublishSubject.create<FavoredEvent>()
+        val fakerSubject = PublishSubject.create<FavoredEvent>()!!
 
         val favoredMovies = listOf(Movie(1, true, 0.0, "", 1.0, "", false,
                 listOf(Genre(1, "Thriller"), Genre(2, "Action")), Date(), ""))

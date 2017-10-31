@@ -18,6 +18,7 @@ import haroldolivieri.moviescatalog.custom.EndlessRecyclerViewScrollListener
 import haroldolivieri.moviescatalog.domain.Movie
 import haroldolivieri.moviescatalog.features.BaseActivity
 import haroldolivieri.moviescatalog.features.details.DetailsIntent
+import haroldolivieri.moviescatalog.repository.local.FavoredEvent
 import haroldolivieri.moviescatalog.repository.remote.entities.Genre
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_movies.*
@@ -32,6 +33,7 @@ interface MoviesView {
     fun showMessage(message: String)
     fun showGenres(genres: List<Genre>?)
     fun getGenresToFilter(): HashMap<Int, Boolean>
+    fun updateAdapterPositionStatus(favoredEvent: FavoredEvent?)
 }
 
 open class MoviesActivity(override val layout: Int = R.layout.activity_main) : BaseActivity(),
@@ -86,6 +88,11 @@ open class MoviesActivity(override val layout: Int = R.layout.activity_main) : B
         showSnackBar(moviesRecyclerView,
                 "You are disconnected. Please check out your internet",
                 Snackbar.LENGTH_INDEFINITE)
+    }
+
+    override fun updateAdapterPositionStatus(favoredEvent: FavoredEvent?) {
+        movieAdapter.favItems.put(favoredEvent!!.movieId, favoredEvent.favored)
+        movieAdapter.notifyDataSetChanged()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

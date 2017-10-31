@@ -12,7 +12,7 @@
     <string name="vote_average">Vote Average</string>
     <string name="release_date">Release Date</string>
 
-    <string name="filter_by">Filter by genresFaked</string>
+    <string name="filter_by">Filter by genres</string>
     <string name="order_asc">ASC</string>
     <string name="order_desc">DESC</string>
     <string name="category_placeholder">Comedy</string>

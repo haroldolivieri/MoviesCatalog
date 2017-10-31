@@ -13,7 +13,6 @@ import haroldolivieri.moviescatalog.repository.remote.entities.toMovie
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
-import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 interface MoviesPresenter {
@@ -43,11 +42,10 @@ open class MoviesPresenterImpl
                 .subscribe {
                     val position = movies?.indexOfFirst { movie -> movie.id == it?.movieId }
                     movies?.get(position!!)?.favored = it?.favored
-                    performMovieFilter(moviesView.getGenresToFilter())
+                    moviesView.updateAdapterPositionStatus(it)
                 }
 
         moviesView.showLoading()
-        fetchPopularMoviesData()
     }
 
     override fun onDestroy() {
@@ -65,12 +63,19 @@ open class MoviesPresenterImpl
 
     override fun favoriteAction(checked: Boolean, movie: Movie) {
         if (checked) {
-            favoritesRepository.favorite(movie).subscribe({}, { t ->
+            favoritesRepository.favorite(movie).subscribe({
+                setCacheMovieFavored(movie, checked)
+            }, { t ->
                 Log.e(this::class.java.simpleName, t.message)
             })
         } else {
             movie.id?.let { favoritesRepository.unfavorite(it) }
+            setCacheMovieFavored(movie, checked)
         }
+    }
+
+    private fun setCacheMovieFavored(movie: Movie, checked: Boolean) {
+        movies?.map { if (it.id == movie.id) it.favored = checked }
     }
 
     override fun fetchPopularMoviesData(page: Int) {

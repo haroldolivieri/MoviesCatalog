@@ -23,9 +23,8 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideFavoriteRepository(realmConfiguration: RealmConfiguration,
-                                  publishSubject: PublishSubject<FavoredEvent>)
-            : FavoritesRepository = FavoritesRepositoryLocal(realmConfiguration, publishSubject)
+    fun provideFavoriteRepository(realmConfiguration: RealmConfiguration)
+            : FavoritesRepository = FavoritesRepositoryLocal(realmConfiguration)
 
     @Provides
     @Singleton

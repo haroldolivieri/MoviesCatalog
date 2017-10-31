@@ -49,7 +49,7 @@ class MoviesPresenterTest {
     @Test
     fun onCreationPresenter() {
         val presenterSpy = Mockito.spy<MoviesPresenter>(presenter)
-        presenterSpy.onCreate()
+        presenterSpy.onConnected()
 
         val filterGenres = HashMap<Int, Boolean>()
         genresFaked.map { it.id?.let { it1 -> filterGenres.put(it1, true) } }

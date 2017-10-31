@@ -26,7 +26,6 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowApplication
-import com.bumptech.glide.Glide.tearDown
 import org.junit.After
 
 
@@ -92,7 +91,6 @@ class DetailsActivityTest {
         assertTrue(favCheckBox.isChecked == movie.favored)
 
         favCheckBox.performClick()
-        fakerSubject.onNext(FavoredEvent(!movie.favored!!, movie.id!!))
         assertTrue(favCheckBox.isChecked == !movie.favored!!)
 
         detailsActivity.onBackPressed()

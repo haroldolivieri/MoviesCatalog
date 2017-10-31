@@ -31,7 +31,7 @@ class FavoriteRepositoryRealmTest {
 
     @Before
     fun setUp() {
-        favoriteRepository = FavoritesRepositoryLocal(realmConfiguration, PublishSubject.create())
+        favoriteRepository = FavoritesRepositoryLocal(realmConfiguration)
         favoriteRepository.deleteAll()
     }
 

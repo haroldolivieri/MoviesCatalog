@@ -20,8 +20,7 @@ interface FavoritesRepository {
 }
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class FavoritesRepositoryLocal(configuration: RealmConfiguration,
-                               val favoredSubject: PublishSubject<FavoredEvent>) :
+class FavoritesRepositoryLocal(configuration: RealmConfiguration) :
         AbstractRealmRepository(configuration), FavoritesRepository {
 
     companion object {
@@ -57,7 +56,6 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration,
             return Observable.error(e)
         }
 
-        favoredSubject.onNext(FavoredEvent(true, movie.id!!))
         return Observable.just(favorite?.toMovie())
     }
 
@@ -68,8 +66,6 @@ class FavoritesRepositoryLocal(configuration: RealmConfiguration,
                 movie?.deleteFromRealm()
             }
         }
-
-        favoredSubject.onNext(FavoredEvent(false, id))
     }
 
     override fun deleteAll() =
