@@ -22,6 +22,8 @@ interface MoviesPresenter {
     fun onCreate()
     fun onDestroy()
     fun onConnected()
+    fun moviesCount(): Int?
+    fun genresCount() : Int?
 }
 
 open class MoviesPresenterImpl
@@ -34,6 +36,7 @@ open class MoviesPresenterImpl
     private var movies: MutableList<Movie>? = null
     private var genres: List<Genre>? = null
     private var disposable: Disposable? = null
+
 
     override fun onCreate() {
         disposable = favoredObservable
@@ -80,6 +83,11 @@ open class MoviesPresenterImpl
     }
 
     override fun fetchPopularMoviesData(page: Int) {
+
+        if (moviesCount() >= 50) {
+            return
+        }
+
         val movies = moviesRepository.getPopularMovies(page)
         val genres = moviesRepository.getGenres()
 
@@ -116,11 +124,18 @@ open class MoviesPresenterImpl
         moviesView.showMovies(result)
     }
 
+    override fun moviesCount(): Int = movies?.size ?: 0
+    override fun genresCount(): Int? = genres?.size ?: 0
+
     private fun reindexMovies(tempMovies: List<Movie>) {
         if (this.movies == null) {
             this.movies = tempMovies as MutableList<Movie>?
         } else {
-            this.movies!!.addAll((tempMovies as MutableList<Movie>?)!!)
+            if (moviesCount() < 50) {
+                this.movies!!.addAll((tempMovies as MutableList<Movie>?)!!)
+            }
+
+            this.movies = this.movies!!.take(50) as MutableList<Movie>
         }
     }
 

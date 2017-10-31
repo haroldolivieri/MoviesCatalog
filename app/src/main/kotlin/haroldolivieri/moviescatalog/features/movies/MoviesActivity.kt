@@ -44,9 +44,7 @@ open class MoviesActivity(override val layout: Int = R.layout.activity_main) : B
     val layoutManager = LinearLayoutManager(this)
     val endLessScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
         override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-            if (totalItemsCount < 50) {
-                loadNextPageData(page + 1)
-            }
+            loadNextPageData(page + 1)
         }
     }
 
@@ -61,7 +59,13 @@ open class MoviesActivity(override val layout: Int = R.layout.activity_main) : B
     val genreAdapter by lazy {
         GenreAdapter(context = this@MoviesActivity,
                 itemClick = { genres ->
-                    selectAllGenres.visibility = View.VISIBLE
+
+                    if (mainPresenter.genresCount() == genres.size) {
+                        selectAllGenres.visibility = View.GONE
+                    } else {
+                        selectAllGenres.visibility = View.VISIBLE
+                    }
+
                     mainPresenter.performMovieFilter(filterGenres = genres)
                 })
     }
@@ -138,7 +142,7 @@ open class MoviesActivity(override val layout: Int = R.layout.activity_main) : B
     }
 
     private fun onFilterCleared() {
-        selectAllGenres.visibility = View.INVISIBLE
+        selectAllGenres.visibility = View.GONE
         val selectedGenres = genreAdapter.getAllGenres()
         selectedGenres.map { selectedGenres.put(it.key, true) }
         genreAdapter.setSelectedGenres(selectedGenres)
