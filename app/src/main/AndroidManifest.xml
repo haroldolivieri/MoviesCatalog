@@ -17,6 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".features.movies.MoviesActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.details.DetailsActivity"></activity>
+        <activity
+            android:name=".features.details.DetailsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

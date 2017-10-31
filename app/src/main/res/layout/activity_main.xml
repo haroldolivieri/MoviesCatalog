@@ -40,12 +40,12 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/filterByLabel"
@@ -55,7 +55,7 @@
                         android:layout_centerVertical="true"
                         android:text="@string/filter_by"
                         android:textColor="@android:color/black"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -72,17 +72,18 @@
                         android:textAllCaps="true"
                         android:textSize="14sp"
                         android:theme="@style/BorderlessButton" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <TextView
                         android:id="@+id/emptyViewGenre"
                         fontPath="@string/bariol_bold"
-                        android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="@string/genres_not_loaded" />
 
                     <haroldolivieri.moviescatalog.custom.RecyclerViewEmpty

@@ -14,8 +14,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
-import java.time.Duration
-
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
 
@@ -30,6 +28,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         setContentView(layout)
 
         ReactiveNetwork.observeInternetConnectivity()
+                .skip(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { connected ->

@@ -46,6 +46,7 @@ open class MoviesPresenterImpl
                 }
 
         moviesView.showLoading()
+        fetchPopularMoviesData()
     }
 
     override fun onDestroy() {

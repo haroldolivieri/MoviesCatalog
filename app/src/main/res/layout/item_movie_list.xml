@@ -19,11 +19,11 @@
         tools:src="@drawable/placeholder_image" />
 
     <android.support.constraint.ConstraintLayout
-        android:transitionName="@string/fav_container_transition"
         android:id="@+id/favoriteContainer"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:background="@android:color/black"
+        android:transitionName="@string/fav_container_transition"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -35,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:ellipsize="marquee"
             android:maxLines="1"
             android:maxWidth="300dp"
@@ -55,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:textColor="@android:color/white"
             android:transitionName="@string/year_transition"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -63,11 +65,13 @@
 
         <CheckBox
             android:id="@+id/favoriteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
             android:button="@drawable/selector_favorite_check_box"
             android:buttonTint="@android:color/white"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="0sp"
             android:tint="@android:color/white"
             android:transitionName="@string/favorite_transition"
             app:layout_constraintBottom_toBottomOf="parent"

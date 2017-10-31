@@ -1,7 +1,6 @@
 package haroldolivieri.moviescatalog.features.movies
 
 import android.os.Bundle
-import android.support.annotation.VisibleForTesting
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
@@ -81,10 +80,12 @@ open class MoviesActivity(override val layout: Int = R.layout.activity_main) : B
 
     override fun onConnected() {
         hideSnackBar()
+        endLessScrollListener.shouldfetchAgain()
         mainPresenter.onConnected()
     }
 
     override fun onDisconnected() {
+        hideLoading()
         showSnackBar(moviesRecyclerView,
                 "You are disconnected. Please check out your internet",
                 Snackbar.LENGTH_INDEFINITE)

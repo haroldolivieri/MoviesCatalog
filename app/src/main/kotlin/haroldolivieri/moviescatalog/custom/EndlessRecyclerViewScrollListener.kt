@@ -77,6 +77,10 @@ abstract class EndlessRecyclerViewScrollListener : RecyclerView.OnScrollListener
         }
     }
 
+    fun shouldfetchAgain() {
+        loading = false
+    }
+
     fun resetState() {
         this.currentPage = this.startingPageIndex
         this.previousTotalItemCount = 0
