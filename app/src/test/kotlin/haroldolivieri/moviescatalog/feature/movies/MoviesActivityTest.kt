@@ -60,7 +60,7 @@ class MoviesActivityTest {
 
         val movie = moviePage1MatchedFaked[0]
 
-        assertTrue(moviesViewHolder.title.text == movie.title)
+        assertTrue(moviesViewHolder.title.text == "#${movie.position}  ${movie.title}")
         assertTrue(moviesViewHolder.favAction.isChecked == movie.favored)
         moviesViewHolder.favAction.performClick()
         assertTrue(moviesViewHolder.favAction.isChecked == !movie.favored!!)

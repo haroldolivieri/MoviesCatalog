@@ -27,7 +27,7 @@
     <string name="year_transition">year_transition_name</string>
     <string name="fav_container_transition">favoriteContainerTransitionName</string>
     <string name="share_transition">shareTransitionName</string>
-    <string name="toolbar_title">Awesome Movies Catalog</string>
+    <string name="toolbar_title">MoviesCatalog: Top Popularity</string>
     <string name="genres_not_loaded">Genres not loaded yet</string>
     <string name="genres">Genres:</string>
 

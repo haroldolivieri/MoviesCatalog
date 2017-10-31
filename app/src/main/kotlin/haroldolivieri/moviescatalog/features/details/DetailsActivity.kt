@@ -58,7 +58,7 @@ class DetailsActivity(override val layout: Int = R.layout.activity_movie_details
                     .apply(options)
                     .into(movieImage)
 
-            movieTitle.text = title ?: "Not Informed"
+            movieTitle.text = "#${movie.position}  ${movie.title}"
             movieYear.text = releaseDate?.formatToString("yyyy") ?: "Not Informed"
             movieVoteAverage.text = "${voteAverage ?: '-'}"
             favoriteButton.isChecked = favored ?: false
@@ -80,6 +80,7 @@ class DetailsActivity(override val layout: Int = R.layout.activity_movie_details
         val intent = Intent(android.content.Intent.ACTION_SEND)
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TEXT, "Movies Catalog - Recommendation\n\n" +
+                "Popularity Ranking Position: #${movie.position}\n" +
                 "Title: ${movie.title}\n" +
                 "Release Date: ${movie.releaseDate?.formatToString("yyyy-MM-dd")}\n" +
                 "Genres: ${movieGenres.text}\n" +
