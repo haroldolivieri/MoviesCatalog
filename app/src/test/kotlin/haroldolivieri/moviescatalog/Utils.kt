@@ -23,7 +23,7 @@ class TestFaker {
 
         val fakerSubject = PublishSubject.create<FavoredEvent>()!!
 
-        val favoredMovies = listOf(Movie(1, true, 0.0, "", 1.0, "", false,
+        val favoredMovies = listOf(Movie(1, 1, true, 0.0, "", 1.0, "", false,
                 listOf(Genre(1, "Thriller"), Genre(2, "Action")), Date(), ""))
 
         val genresFaked = listOf(Genre(1, "Thriller"), Genre(2, "Action"), Genre(3, "Drama"))
@@ -41,19 +41,19 @@ class TestFaker {
                 MovieRemote(6, 0.0, "title6", 1.0, "", false, listOf(1, 3), fakerDate, ""))
 
         val moviePage1MatchedFaked = listOf(
-                Movie(1, true, 0.0, "title1", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                Movie(1, 1, true, 0.0, "title1", 1.0, "http://image.tmdb.org/t/p/w500", false,
                         listOf(Genre(1, "Thriller"), Genre(2, "Action")), fakerDate, ""),
-                Movie(2, false, 0.0, "title2", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                Movie(2, 2, false, 0.0, "title2", 1.0, "http://image.tmdb.org/t/p/w500", false,
                         listOf(Genre(2, "Action"), Genre(3, "Drama")), fakerDate, ""),
-                Movie(3, false, 0.0, "title3", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                Movie(3, 3, false, 0.0, "title3", 1.0, "http://image.tmdb.org/t/p/w500", false,
                         listOf(Genre(1, "Thriller"), Genre(3, "Drama")), fakerDate, ""))
 
         val moviePage2MatchedFaked = listOf(
-                Movie(4, true, 0.0, "title4", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                Movie(4, 4, true, 0.0, "title4", 1.0, "http://image.tmdb.org/t/p/w500", false,
                         listOf(Genre(1, "Thriller"), Genre(2, "Action")), fakerDate, ""),
-                Movie(5, false, 0.0, "title5", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                Movie(5, 5, false, 0.0, "title5", 1.0, "http://image.tmdb.org/t/p/w500", false,
                         listOf(Genre(2, "Action"), Genre(3, "Drama")), fakerDate, ""),
-                Movie(6, false, 0.0, "title6", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                Movie(6, 6, false, 0.0, "title6", 1.0, "http://image.tmdb.org/t/p/w500", false,
                         listOf(Genre(1, "Thriller"), Genre(3, "Drama")), fakerDate, ""))
     }
 }

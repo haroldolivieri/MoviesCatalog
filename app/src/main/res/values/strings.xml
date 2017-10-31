@@ -29,5 +29,6 @@
     <string name="share_transition">shareTransitionName</string>
     <string name="toolbar_title">Awesome Movies Catalog</string>
     <string name="genres_not_loaded">Genres not loaded yet</string>
+    <string name="genres">Genres:</string>
 
 </resources>

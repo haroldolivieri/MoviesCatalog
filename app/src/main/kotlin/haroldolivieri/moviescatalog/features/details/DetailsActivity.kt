@@ -71,8 +71,8 @@ class DetailsActivity(override val layout: Int = R.layout.activity_movie_details
             }
 
             var strGenres = ""
-            genres?.forEach { strGenres += " ${it.name}" }
-            movieGenres.text = "Genres: $strGenres"
+            genres?.forEach { strGenres += "${it.name}  " }
+            movieGenres.text = strGenres
         }
     }
 

@@ -6,6 +6,7 @@ import java.util.*
 
 
 data class Movie(val id: Int?,
+                 var position: Int?,
                  var favored: Boolean?,
                  val voteAverage: Double?,
                  val title: String?,

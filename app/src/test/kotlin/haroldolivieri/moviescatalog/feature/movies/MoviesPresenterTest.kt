@@ -82,9 +82,9 @@ class MoviesPresenterTest {
         filterByThriller.put(1, true)
 
         val filteredByThrillerResult = listOf(
-                Movie(1, true, 0.0, "title1", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                Movie(1, 1, true, 0.0, "title1", 1.0, "http://image.tmdb.org/t/p/w500", false,
                         listOf(Genre(1, "Thriller"), Genre(2, "Action")), fakerDate, ""),
-                Movie(3, false, 0.0, "title3", 1.0, "http://image.tmdb.org/t/p/w500", false,
+                Movie(3, 3, false, 0.0, "title3", 1.0, "http://image.tmdb.org/t/p/w500", false,
                         listOf(Genre(1, "Thriller"), Genre(3, "Drama")), fakerDate, ""))
 
         presenter.performMovieFilter(filterByThriller)

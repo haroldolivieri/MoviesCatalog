@@ -17,6 +17,6 @@ data class MovieRemote(val id: Int,
 
 fun MovieRemote.toMovie(genresRemotes: List<Genre>): Movie {
     val gender = genreIds.map { genreId -> genresRemotes.first { it.id == genreId } }
-    return Movie(id, false, voteAverage, title, popularity,
+    return Movie(id, -1, false, voteAverage, title, popularity,
             "http://image.tmdb.org/t/p/w500$backDropPath", adult, gender, releaseDate, overview)
 }

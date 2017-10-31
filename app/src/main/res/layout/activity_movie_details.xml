@@ -8,9 +8,9 @@
 
     <ImageView
         android:id="@+id/movieImage"
-        android:background="?attr/colorPrimary"
         android:layout_width="0dp"
         android:layout_height="300dp"
+        android:background="?attr/colorPrimary"
         android:scaleType="centerCrop"
         android:transitionName="@string/image_transition"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -26,20 +26,22 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="0dp">
 
         <ImageView
             android:id="@+id/movieAdultImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="24dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/movieVoteAverage"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.545"
             app:srcCompat="@drawable/ic_clapperboard" />
 
         <TextView
@@ -49,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/yellow"
             android:textSize="40sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/movieAdultImage"
@@ -64,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:tint="@android:color/white"
+            android:tint="@color/yellow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/movieVoteAverage"
             app:layout_constraintRight_toRightOf="parent"
@@ -76,19 +78,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/oval_ripple"
+            android:padding="16dp"
+            android:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_share" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_share" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:transitionName="@string/fav_container_transition"
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:background="@android:color/black"
+        android:transitionName="@string/fav_container_transition"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -134,31 +139,43 @@
             tools:text="Blade Runner" />
 
         <TextView
-            android:transitionName="@string/year_transition"
             android:id="@+id/movieYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:textColor="@android:color/white"
+            android:transitionName="@string/year_transition"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movieTitle"
             tools:text="2017" />
+
+        <TextView
+            android:id="@+id/textView2"
+            fontPath="@string/bariol_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/genres"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movieYear"
+            tools:ignore="MissingPrefix" />
 
         <TextView
             android:id="@+id/movieGenres"
             fontPath="@string/bariol_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
             android:textColor="@android:color/white"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movieYear"
-            app:layout_constraintVertical_bias="0.666"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+            app:layout_constraintLeft_toRightOf="@+id/textView2"
             tools:ignore="MissingPrefix"
             tools:text="Comedy, Action, Adventure" />
 
@@ -167,7 +184,6 @@
     <TextView
         android:id="@+id/movieOverView"
         android:layout_width="0dp"
-        android:textSize="16sp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -175,6 +191,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"

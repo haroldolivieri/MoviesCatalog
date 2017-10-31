@@ -38,7 +38,7 @@ class FavoriteRepositoryRealmTest {
     @Test
     fun testFavoriteMovieWithSuccess() {
         val genres = listOf(Genre(1, "Thriller"), Genre(2, "Action"))
-        val movieToBeFavored = Movie(211672, false, 6.4, "Minions", 618.378251,
+        val movieToBeFavored = Movie(211672, 1, false, 6.4, "Minions", 618.378251,
                 "/uX7LXnsC7bZJZjn048UCOwkPXWJ.jpg", false, genres, Date(),
                 "Minions Stuart, Kevin and Bob are recruited by Scarlet Overkill," +
                         " a super-villain who, alongside her inventor husband Herb, " +
@@ -54,7 +54,7 @@ class FavoriteRepositoryRealmTest {
     @Test
     fun unfavoriteMovieWithSuccess() {
         val genres = listOf(Genre(1, "Thriller"), Genre(2, "Action"))
-        val movieToBeFavored = Movie(211672, false, 6.4, "Minions", 618.378251,
+        val movieToBeFavored = Movie(211672, 1, false, 6.4, "Minions", 618.378251,
                 "/uX7LXnsC7bZJZjn048UCOwkPXWJ.jpg", false, genres, Date(),
                 "Minions Stuart, Kevin and Bob are recruited by Scarlet Overkill," +
                         " a super-villain who, alongside her inventor husband Herb, " +
@@ -87,10 +87,10 @@ class FavoriteRepositoryRealmTest {
     @Test
     fun testFavoriteManyMoviesWithSameCategory() {
         val genres = listOf(Genre(1, "Thriller"), Genre(2, "Action"))
-        val movieToBeFavored1 = Movie(1, false, 6.4, "", 618.378251, "", false, genres, Date(), "")
-        val movieToBeFavored2 = Movie(2, false, 6.4, "", 618.378251, "", false, genres, Date(), "")
-        val movieToBeFavored3 = Movie(3, false, 6.4, "", 618.378251, "", false, genres, Date(), "")
-        val movieToBeFavored4 = Movie(4, false, 6.4, "", 618.378251, "", false, genres, Date(), "")
+        val movieToBeFavored1 = Movie(1, 1, false, 6.4, "", 618.378251, "", false, genres, Date(), "")
+        val movieToBeFavored2 = Movie(2, 2, false, 6.4, "", 618.378251, "", false, genres, Date(), "")
+        val movieToBeFavored3 = Movie(3, 3, false, 6.4, "", 618.378251, "", false, genres, Date(), "")
+        val movieToBeFavored4 = Movie(4, 4, false, 6.4, "", 618.378251, "", false, genres, Date(), "")
 
         favoriteRepository.favorite(movieToBeFavored1)
         favoriteRepository.favorite(movieToBeFavored2)
@@ -110,7 +110,7 @@ class FavoriteRepositoryRealmTest {
         var x = 5
         while (x > 0) {
             val genres = listOf(Genre(1, "Thriller"), Genre(2, "Action"))
-            val movieToBeFavored = Movie(211672, false, 6.4, "Minions", 618.378251,
+            val movieToBeFavored = Movie(211672, 1, false, 6.4, "Minions", 618.378251,
                     "/uX7LXnsC7bZJZjn048UCOwkPXWJ.jpg", false, genres, Date(),
                     "Minions Stuart, Kevin and Bob are recruited by Scarlet Overkill," +
                             " a super-villain who, alongside her inventor husband Herb, " +

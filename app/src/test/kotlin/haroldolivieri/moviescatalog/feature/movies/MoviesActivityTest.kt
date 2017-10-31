@@ -33,8 +33,8 @@ class MoviesActivityTest {
     @Before
     fun setUp() {
         moviesActivity = Robolectric.setupActivity(MoviesActivity::class.java)
-        moviesRecyclerView = (moviesActivity.findViewById(R.id.moviesRecyclerView))
-        genresRecyclerView = (moviesActivity.findViewById(R.id.genreRecyclerView))
+        moviesRecyclerView = moviesActivity.findViewById<RecyclerView>(R.id.moviesRecyclerView)
+        genresRecyclerView = moviesActivity.findViewById<RecyclerView>(R.id.genreRecyclerView)
     }
 
     @Test

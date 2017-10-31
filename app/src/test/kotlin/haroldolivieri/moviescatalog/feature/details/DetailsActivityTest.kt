@@ -53,7 +53,7 @@ class DetailsActivityTest {
 
     @Test
     fun nullDataOnIntentExtra() {
-        val movie = Movie(null, null, null, null, null, null, null, null, null, null)
+        val movie = Movie(null, null, null, null, null, null, null, null, null, null, null)
         val (movieYear, movieOverView, movieVoteAverage) = getViewElements(movie)
 
         assertTrue(movieYear.text.toString() == "Not Informed")

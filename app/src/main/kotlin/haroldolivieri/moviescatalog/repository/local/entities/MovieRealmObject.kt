@@ -20,6 +20,6 @@ open class MovieRealmObject(@PrimaryKey var id: Int?,
     constructor() : this(null, null, null, null, null, null, null, null, null, null)
 
     fun toMovie(): Movie =
-            Movie(id, true, voteAverage, title, popularity, backDropPath, adult,
+            Movie(id, 0, true, voteAverage, title, popularity, backDropPath, adult,
                     genres?.map { it.toGenre() }, releaseDate, overview)
 }

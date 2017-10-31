@@ -23,7 +23,7 @@ interface MoviesPresenter {
     fun onDestroy()
     fun onConnected()
     fun moviesCount(): Int?
-    fun genresCount() : Int?
+    fun genresCount(): Int?
 }
 
 open class MoviesPresenterImpl
@@ -137,6 +137,12 @@ open class MoviesPresenterImpl
 
             this.movies = this.movies!!.take(50) as MutableList<Movie>
         }
+
+        setRankingPositions()
+    }
+
+    private fun setRankingPositions() {
+        movies?.mapIndexed { index, movie -> movie.position = index + 1 }
     }
 
     private fun matchWithFavoredMovies() {

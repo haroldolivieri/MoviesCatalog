@@ -99,7 +99,7 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
                     .apply(options)
                     .into(image)
 
-            title.text = "#${layoutPosition+1}  ${movie.title}"
+            title.text = "#${movie.position}  ${movie.title}"
             year.text = movie.releaseDate?.formatToString("yyyy")
             voteAverage.text = "${movie.voteAverage}"
             favAction.isChecked = favItems[movie.id]!!
