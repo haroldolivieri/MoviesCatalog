@@ -30,3 +30,4 @@ To accomplish this task I've choose to persist the request data temporarily, thr
 ###### - Add more filtering/sorting options (Year, Genre, keywords...) ✅  
 ###### - The ability to provide smooth transitions between screens and states ✅ 
 
+![](https://github.com/haroldolivieri/MoviesCatalog/blob/master/moviescatalog.png)
