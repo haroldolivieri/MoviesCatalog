@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="moviescatalog.png" width="30%">
+</p>
+
 # MoviesCatalog
 
 ### An MVP App using Kotlin, Dagger-Android, RxJava2, Realm, Local cache with OkHttp, Mockito and Robolectric.
@@ -29,5 +33,3 @@ To accomplish this task I've choose to persist the request data temporarily, thr
 ###### - Infinite scroll / Lazy load of more items. ✅  
 ###### - Add more filtering/sorting options (Year, Genre, keywords...) ✅  
 ###### - The ability to provide smooth transitions between screens and states ✅ 
-
-![](https://github.com/haroldolivieri/MoviesCatalog/blob/master/moviescatalog.png)
