@@ -60,3 +60,7 @@ after_success:
     - codecov                       #Run codecov
 
 after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
+
+branches:
+        only:
+                - master
