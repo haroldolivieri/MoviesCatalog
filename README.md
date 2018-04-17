@@ -3,6 +3,7 @@
 </p>
 
 # MoviesCatalog
+[![Build Status](https://travis-ci.org/haroldolivieri/MoviesCatalog.svg?branch=master)](https://travis-ci.org/haroldolivieri/MoviesCatalog) [![codecov](https://codecov.io/gh/haroldolivieri/MoviesCatalog/branch/master/graph/badge.svg)](https://codecov.io/gh/haroldolivieri/MoviesCatalog)
 
 ### An MVP App using Kotlin, Dagger-Android, RxJava2, Realm, Local cache with OkHttp, Mockito and Robolectric.
 
