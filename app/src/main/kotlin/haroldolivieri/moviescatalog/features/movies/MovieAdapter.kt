@@ -123,7 +123,7 @@ class MovieAdapter(private var movies: MutableList<Movie>? = null,
             val p5 = Pair(favoriteContainer as View,
                     context.getString(R.string.fav_container_transition))
             val options = ActivityOptionsCompat
-                    .makeSceneTransitionAnimation(context as Activity?, p1, p2, p3, p4, p5)
+                    .makeSceneTransitionAnimation(context as Activity, p1, p2, p3, p4, p5)
             return options
         }
     }

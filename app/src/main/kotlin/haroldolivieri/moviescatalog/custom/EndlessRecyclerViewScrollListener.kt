@@ -77,7 +77,7 @@ abstract class EndlessRecyclerViewScrollListener : RecyclerView.OnScrollListener
         }
     }
 
-    fun shouldfetchAgain() {
+    fun shouldFetchAgain() {
         loading = false
     }
 

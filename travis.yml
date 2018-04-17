@@ -1,0 +1,31 @@
+language: android
+jdk: oraclejdk8
+sudo: false
+
+notifications:
+    email:
+        - haroldo@carioca.build
+
+env:
+  matrix:
+    - ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-21 ANDROID_ABI=armeabi-v7a
+  global:
+    - ADB_INSTALL_TIMEOUT=10
+
+android:
+    update_sdk: true
+    components:
+        - platform-tools
+        - tools
+        - build-tools-25.0.0    #Build tool version
+        - android-25            #targate api version
+
+        # Additional components
+        - extra-google-google_play_services
+        - extra-google-m2repository
+        - extra-android-m2repository
+
+        #system images for emulator
+        - sys-img-armeabi-v7a-android-19
+        - sys-img-armeabi-v7a-android-21

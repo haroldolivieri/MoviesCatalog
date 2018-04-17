@@ -42,7 +42,7 @@ open class MoviesActivity(override val layout: Int = R.layout.activity_main) : B
     @Inject lateinit var mainPresenter: MoviesPresenter
 
     val layoutManager = LinearLayoutManager(this)
-    val endLessScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
+    private val endLessScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
         override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
             loadNextPageData(page + 1)
         }
@@ -88,7 +88,7 @@ open class MoviesActivity(override val layout: Int = R.layout.activity_main) : B
 
     override fun onConnected() {
         hideSnackBar()
-        endLessScrollListener.shouldfetchAgain()
+        endLessScrollListener.shouldFetchAgain()
         mainPresenter.onConnected()
     }
 
