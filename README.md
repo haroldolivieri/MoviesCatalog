@@ -5,6 +5,8 @@
 # MoviesCatalog
 [![Build Status](https://travis-ci.org/haroldolivieri/MoviesCatalog.svg?branch=master)](https://travis-ci.org/haroldolivieri/MoviesCatalog) [![codecov](https://codecov.io/gh/haroldolivieri/MoviesCatalog/branch/master/graph/badge.svg)](https://codecov.io/gh/haroldolivieri/MoviesCatalog)
 
+> database is 100% tested but does not count on coverage because `Realm` just can be tested on `androidTest` environment :(
+
 ### An MVP App using Kotlin, Dagger-Android, RxJava2, Realm, Local cache with OkHttp, Mockito and Robolectric.
 
 Top 50 movies from `moviedb API`.
