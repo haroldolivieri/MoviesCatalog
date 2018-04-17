@@ -14,7 +14,6 @@ android:
         - extra-android-m2repository
 script:
     - ./gradlew build
-    - ./gradlew connectedCheck -PdisablePreDex --stacktrace
 
 before_install:
     - chmod +x gradlew
@@ -27,4 +26,4 @@ after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
 
 branches:
     only:
-        - master
+        - travis-test
