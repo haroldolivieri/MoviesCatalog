@@ -113,11 +113,15 @@ junitJacoco {
                 '**/Manifest*.*',
                 'android/**/*.*',
                 'io/realm/**/*.*',
+                '**/*_Impl*',
                 '**/*_MembersInjector.class',
                 '**/Dagger*Component.class',
                 '**/Dagger*Component$Builder.class',
                 '**/*Module_*Factory.class',
-                '**/*_Factory.class']
+                '**/*Realm**',
+                '**/FavoritesRepository.class',
+                '**/*Test*.*',
+                '**/**_Factory**']
     includeNoLocationClasses = true
 }
 
