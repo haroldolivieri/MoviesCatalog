@@ -27,7 +27,7 @@ class RemoteModule {
 
     @Provides
     @ApiKey
-    fun provideApiKey(): String = "6529fbcde4ba3050af3b976c183a6f84"
+    fun provideApiKey(): String = "123456789009876543211234567890"
 
     @Provides
     fun provideMovieApi(retrofit: Retrofit): MoviesAPI {
